@@ -3,7 +3,8 @@ import createInlineStyleButton from '../../utils/createInlineStyleButton';
 import ItalicButton from './ItalicButton';
 import BoldButton from './BoldButton';
 import UnderlineButton from './UnderlineButton';
-import FontSizeButton from './FontSizeButton';
+import FontSizeDownButton from './FontSizeDownButton';
+import FontSizeUpButton from './FontSizeUpButton';
 import ForeColorButton from './ForeColorButton';
 import MemoButton from './MemoButton';
 
@@ -15,7 +16,8 @@ export {
   ItalicButton,
   BoldButton,
   UnderlineButton,
-  FontSizeButton,
+  FontSizeDownButton,
+  FontSizeUpButton,
   ForeColorButton,
   MemoButton,
 };
