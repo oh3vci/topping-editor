@@ -7,7 +7,10 @@ import FontSizeDownButton from './FontSizeDownButton';
 import FontSizeUpButton from './FontSizeUpButton';
 import ForeColorButton from './ForeColorButton';
 import MemoButton from './MemoButton';
-
+import AlignLeftButton from './AlignLeftButton';
+import AlignCenterButton from './AlignCenterButton';
+import AlignRightButton from './AlignRightButton';
+import AlignDefaultButton from './AlignDefaultButton';
 
 
 export {
@@ -20,4 +23,8 @@ export {
   FontSizeUpButton,
   ForeColorButton,
   MemoButton,
+  AlignLeftButton,
+  AlignCenterButton,
+  AlignRightButton,
+  AlignDefaultButton,
 };
