@@ -1,39 +1,56 @@
 import React, { Component } from 'react';
 import { EditorState } from 'draft-js';
 import Editor, { createEditorStateWithText } from 'draft-js-plugins-editor';
-//import createSideToolbarPlugin from 'draft-js-side-toolbar-plugin';
+
 import editorStyles from './styles/editorStyles.css';
 import createSideToolbarPlugin from './components/SideToolbar';
 import createInlineToolbarPlugin, { Separator } from './components/InlineToolbar';
-//import createInlineToolbarPlugin, { Separator } from 'draft-js-inline-toolbar-plugin';
+import createMemoifyPlugin from './components/Memo';
+
 import {
-  FontSizeButton,
+  FontSizeDownButton,
+  FontSizeUpButton,
   BoldButton,
   ItalicButton,
   UnderlineButton,
   ForeColorButton,
-  MemoButton,
+  AddMemoButton,
 } from './components/Buttons';
 import SubmitButton from './components/SubmitButton';
+
+let memoAddElement = null;
+let inlineToolbarElement = null;
+
+const addMemo = () => {
+  memoAddElement.openPopover();
+  console.log("It did!");
+};
 
 const sideToolbarPlugin = createSideToolbarPlugin();
 const inlineToolbarPlugin = createInlineToolbarPlugin({
   structure: [
-    FontSizeButton,
+    FontSizeDownButton,
+    FontSizeUpButton,
     Separator,
     BoldButton,
     ItalicButton,
     UnderlineButton,
     ForeColorButton,
     Separator,
-    MemoButton,
-  ]
+    AddMemoButton,
+  ],
+  addMemo,
 });
+const memoifyPlugin = createMemoifyPlugin();
+
+
 const { SideToolbar } = sideToolbarPlugin;
 const { InlineToolbar } = inlineToolbarPlugin;
+const { MemoAdd } = memoifyPlugin;
 const plugins = [
   sideToolbarPlugin,
   inlineToolbarPlugin,
+  memoifyPlugin
 ];
 const text = 'test test';
 
@@ -62,20 +79,18 @@ class App extends Component {
           <Editor
             customStyleMap={{
               'COLOR': {
-                color: '#51E2C1',
+                color: '#8BD0D2',
+                background: 'none',
               },
               'MEMO': {
                 color: '#FFFFFF',
-                background: '#51E2C1',
+                background: '#8BD0D2',
               },
-              'SMALL': {
-                fontSize: '11px',
+              'SIZE_UP': {
+                fontSize: '120%',
               },
-              'MEDIUM': {
-                fontSize: '13px',
-              },
-              'LARGE': {
-                fontSize: '15px',
+              'SIZE_DOWN': {
+                fontSize: '80%',
               },
             }}
             editorState={this.state.editorState}
@@ -85,8 +100,16 @@ class App extends Component {
             ref={(element) => { this.editor = element; }}
           />
           <SideToolbar />
-          <InlineToolbar />
+          <InlineToolbar
+            ref={(element) => { inlineToolbarElement = element; }}
+          />
         </div>
+        <MemoAdd
+          ref={(element) => { memoAddElement = element; }}
+          editorState={this.state.editorState}
+          onChange={this.onChange}
+          inlineToolbarElement={inlineToolbarElement}
+        />
       </div>
     );
   }
