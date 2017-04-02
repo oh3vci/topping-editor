@@ -1,75 +1,38 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from 'react';
+import linkifyIt from 'linkify-it';
+import tlds from 'tlds';
 
-class Memo extends React.Component {
+const linkify = linkifyIt();
+linkify.tlds(tlds);
 
-  constructor(props) {
-    super(props);
-    this.state = { memo: props && props.memo || '' }
-  }
-
-  setMemo(event) {
-    let { memo } = this.state;
-    let content = '';
-
-
-    this.setState({memo:}, () => {
-      ReactDOM.findDOMNode(this.refs.textInput).value =
-    })
-
-    this.props.set
-    this.reset();
-    event.target.blur();
-  }
-
-  reset() {
-    this.setState({ url: '' })
-  }
-
-  onMemoChange(event) {
-    event.stopPropagation();
-    const memo = event.target.value;
-
-    if (memo === '') {
-      this.props.cancelError();
-    }
-
-    this.setState({memo: memo});
-  }
-
-  onMemoKeyDown(event) {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      this.setMemo(event);
-    } else if (event.key === 'Escape') {
-      event.preventDefault();
-      this.reset();
-    }
-  }
-
-  componentDidMount() {
-    ReactDOM.findDOMNode(this.refs.textInput).focus()
-  }
-
+// The component we render when we encounter a hyperlink in the text
+export default class Memo extends Component {
   render() {
-    return (
-      <div>
-        <input
-          ref='textInput'
-          type='text'
-        />
-        <span>
-          <button
-            className='memo'
-            onClick={}
-            type='button'
-          >
+    const {
+      decoratedText = '',
+      target = '_self',
+      className,
+      component,
+      dir, // eslint-disable-line no-unused-vars
+      entityKey, // eslint-disable-line no-unused-vars
+      getEditorState, // eslint-disable-line no-unused-vars
+      offsetKey, // eslint-disable-line no-unused-vars
+      setEditorState, // eslint-disable-line no-unused-vars
+      ...otherProps
+    } = this.props;
 
-          </button>
-        </span>
-      </div>
-    );
+    const links = linkify.match(decoratedText);
+    const href = links && links[0] ? links[0].url : '';
+
+    const props = {
+      ...otherProps,
+      href,
+      target,
+      className,
+    };
+
+    return component
+      ? React.createElement(component, props)
+      : <a {...props} />; // eslint-disable-line jsx-a11y/anchor-has-content
   }
 }
-
-export default Memo;
