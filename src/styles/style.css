@@ -22,7 +22,7 @@ body {
   outline: 0;
   border: none;
   vertical-align: baseline;
-  background-color: #73D8CA;
+  background-color: #8BD0D2;
   color: #FFFFFF;
   margin: 0;
   padding: 0.8em 1.5em 0.8em;
@@ -47,7 +47,7 @@ body {
 }
 
 .submit_button > button:hover {
-  background-color: #73D8CA;
+  background-color: #8BD0D2;
   background-image: none;
   box-shadow: 0px 0px 0px 1px transparent inset, 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;
   color: rgba(255, 255, 255, 0.8);
@@ -58,7 +58,7 @@ body {
 }
 
 .submit_button > button:focus {
-  background-color: #73D8CA;
+  background-color: #8BD0D2;
   background-image: '' !important;
   box-shadow: '' !important;
   color: rgba(255, 255, 255, 0.8);
