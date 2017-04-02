@@ -12,9 +12,7 @@ import Separator from './Separator';
 
 const createInlineToolbarPlugin = (config = {}) => {
 
-  const store = createStore({
-    isVisible: false,
-  });
+  const defaultAddMemo = undefined;
 
   const {
     structure = [
@@ -22,8 +20,14 @@ const createInlineToolbarPlugin = (config = {}) => {
       ItalicButton,
       UnderlineButton,
       ForeColorButton,
-    ]
+    ],
+    addMemo = defaultAddMemo,
   } = config;
+
+  const store = createStore({
+    isVisible: false,
+    addMemo
+  });
 
   const toolbarProps = {
     store,
