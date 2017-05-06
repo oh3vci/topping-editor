@@ -4,9 +4,7 @@ body {
 }
 
 #root {
-  margin: 0 auto;
-  max-width: 768px;
-  padding: 0 15px;
+
 }
 
 .submit_button {
@@ -64,13 +62,55 @@ body {
   color: rgba(255, 255, 255, 0.8);
 }
 
+.container {
+  width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+.wrapper {
+  float: left;
+  width: 83%;
+  padding: 20px;
+}
+
+.blank, .editor, .side {
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+  float: left;
+}
+
 .editor {
-  padding: 16px;
+  width: 70%;
   border-radius: 2px;
+  margin-left: 15%;
   margin-bottom: 2em;
   box-sizing: border-box;
   border: 1px solid #ddd;
   cursor: text;
   box-shadow: inset 0px 1px 8px -3px #ABABAB;
   background: #FEFEFE;
+}
+.blank {
+  width: 8%;
+}
+.side {
+  width: 15%;
+  border: 1px solid #000;
+  background: black;
+}
+
+.added_memo {
+  width: 10px;
+  height: 10px;
+  background: pink;
+}
+
+a {
+  background-color: #8BD0D2 !important;
+  color: #FFFFFF !important;
 }

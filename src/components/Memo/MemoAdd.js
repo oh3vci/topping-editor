@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import linkifyIt from 'linkify-it';
 import modifier from './modifiers';
-
-const linkify = linkifyIt();
 
 export default class MemoAdd extends Component {
   // Start the popover closed
   state = {
-    url: '',
+    content: '',
     open: false,
-    memoError: false
+    isSet: false,
   };
 
   // When the popover is open and users click anywhere on the page,
@@ -32,6 +29,8 @@ export default class MemoAdd extends Component {
       e.preventDefault();
       e.stopPropagation();
       this.addMemo();
+    } else if (e.keyCode === 27) {
+      this.closePopover();
     }
   }
 
@@ -51,7 +50,6 @@ export default class MemoAdd extends Component {
       this.preventNextClose = true;
       // eslint-disable-next-line react/no-find-dom-node
       const toolbarElement = ReactDOM.findDOMNode(this.props.inlineToolbarElement);
-      console.log(toolbarElement);
       this.setPosition(toolbarElement);
       setTimeout(() => {
         setTimeout(() => this.inputElement.focus(), 0);
@@ -69,45 +67,99 @@ export default class MemoAdd extends Component {
   };
 
   addMemo = () => {
-    const { editorState, onChange } = this.props;
-    const { url } = this.state;
-    if (linkify.test(url)) {
-      this.setState({ memoError: false });
-      onChange(modifier(editorState, url));
-      this.closePopover();
-    } else {
-      this.setState({ memoError: true });
-    }
+    const { editorState, onChange, contentState } = this.props;
+    const { content } = this.state;
+    onChange(modifier(editorState, content));
+
+    this.setState({
+      content: '',
+    });
+    this.closePopover();
   };
 
-  changeUrl = (evt) => {
-    this.setState({ url: evt.target.value });
+  changeText = (evt) => {
+    this.setState({ content: evt.target.value });
+  };
+
+
+
+
+/*
+  handleLinkInput(e, direct = false) {
+    if (direct !== true) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    const { editorState } = this.props;
+    const selection = editorState.getSelection();
+    if (selection.isCollapsed()) {
+      this.props.focus();
+      return;
+    }
+    const currentBlock = getCurrentBlock(editorState);
+    let selectedEntity = '';
+    let linkFound = false;
+    currentBlock.findEntityRanges((character) => {
+      const entityKey = character.getEntity();
+      selectedEntity = entityKey;
+      return entityKey !== null && Entity.get(entityKey).getType() === CEntity.LINK;
+    }, (start, end) => {
+      let selStart = selection.getAnchorOffset();
+      let selEnd = selection.getFocusOffset();
+      if (selection.getIsBackward()) {
+        selStart = selection.getFocusOffset();
+        selEnd = selection.getAnchorOffset();
+      }
+      if (start === selStart && end === selEnd) {
+        linkFound = true;
+        const { url } = Entity.get(selectedEntity).getData();
+        this.setState({
+          showURLInput: true,
+          urlInputValue: url,
+        }, () => {
+          setTimeout(() => {
+            this.urlinput.focus();
+            this.urlinput.select();
+          }, 0);
+        });
+      }
+    });
+    if (!linkFound) {
+      this.setState({
+        showURLInput: true,
+      }, () => {
+        setTimeout(() => {
+          this.urlinput.focus();
+        }, 0);
+      });
+    }
   }
+*/
+
+
+
 
   render() {
-    const popoverClassName = this.state.open ?
+    const { open, position } = this.state;
+    const popoverClassName = open ?
       "addMemoPopover" :
       "addMemoClosedPopover";
-
-    const inputClassName = this.state.memoError ?
-      "addMemoInput addMemoInputError" :
-      "addMemoInput";
 
     return (
       <div className="addMemo">
         <div
           className={popoverClassName}
           onClick={this.onPopoverClick}
-          style={this.state.position}
+          style={position}
         >
           <input
             ref={(element) => { this.inputElement = element; }}
             type="text"
-            placeholder="메모를 입력해주세요 …"
-            className={inputClassName}
-            onChange={this.changeUrl}
+            className="addMemoInput"
             onKeyDown={(e) => this.onKeyDown(e)}
-            value={this.state.url}
+            onChange={this.changeText}
+            placeholder="메모를 입력해주세요 …"
+            value={this.state.content}
           />
           <button
             className="addMemoConfirmButton"

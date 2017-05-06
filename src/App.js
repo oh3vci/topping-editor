@@ -5,7 +5,7 @@ import Editor, { createEditorStateWithText } from 'draft-js-plugins-editor';
 import editorStyles from './styles/editorStyles.css';
 import createSideToolbarPlugin from './components/SideToolbar';
 import createInlineToolbarPlugin, { Separator } from './components/InlineToolbar';
-import createMemoifyPlugin from './components/Memo';
+import createMemoPlugin from './components/Memo';
 
 import {
   FontSizeDownButton,
@@ -21,9 +21,8 @@ import SubmitButton from './components/SubmitButton';
 let memoAddElement = null;
 let inlineToolbarElement = null;
 
-const addMemo = () => {
+const handleMemo = () => {
   memoAddElement.openPopover();
-  console.log("It did!");
 };
 
 const sideToolbarPlugin = createSideToolbarPlugin();
@@ -39,18 +38,18 @@ const inlineToolbarPlugin = createInlineToolbarPlugin({
     Separator,
     AddMemoButton,
   ],
-  addMemo,
+  handleMemo,
 });
-const memoifyPlugin = createMemoifyPlugin();
+const memoPlugin = createMemoPlugin();
 
 
 const { SideToolbar } = sideToolbarPlugin;
 const { InlineToolbar } = inlineToolbarPlugin;
-const { MemoAdd } = memoifyPlugin;
+const { MemoAdd, MemoSideBar } = memoPlugin;
 const plugins = [
   sideToolbarPlugin,
   inlineToolbarPlugin,
-  memoifyPlugin
+  memoPlugin
 ];
 const text = 'test test';
 
@@ -73,36 +72,37 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         <SubmitButton />
-        <div className="editor" onClick={this.focus}>
-          <Editor
-            customStyleMap={{
-              'COLOR': {
-                color: '#8BD0D2',
-                background: 'none',
-              },
-              'MEMO': {
-                color: '#FFFFFF',
-                background: '#8BD0D2',
-              },
-              'SIZE_UP': {
-                fontSize: '120%',
-              },
-              'SIZE_DOWN': {
-                fontSize: '80%',
-              },
-            }}
-            editorState={this.state.editorState}
-            onChange={this.onChange}
-            placeholder="Write something..."
-            plugins={plugins}
-            ref={(element) => { this.editor = element; }}
-          />
-          <SideToolbar />
-          <InlineToolbar
-            ref={(element) => { inlineToolbarElement = element; }}
-          />
+        <div className="wrapper">
+          <div className="editor" onClick={this.focus}>
+            <Editor
+              customStyleMap={{
+                'COLOR': {
+                  color: '#8BD0D2',
+                  background: 'none',
+                },
+                'SIZE_UP': {
+                  fontSize: '120%',
+                },
+                'SIZE_DOWN': {
+                  fontSize: '80%',
+                },
+              }}
+              editorState={this.state.editorState}
+              onChange={this.onChange}
+              placeholder="Write something..."
+              plugins={plugins}
+              ref={(element) => { this.editor = element; }}
+            />
+            <SideToolbar />
+            <InlineToolbar
+              ref={(element) => { inlineToolbarElement = element; }}
+            />
+          </div>
+          <div className="side">
+            <MemoSideBar />
+          </div>
         </div>
         <MemoAdd
           ref={(element) => { memoAddElement = element; }}

@@ -14,11 +14,10 @@ export default ({ alignment, children }) => (
     isActive = () => this.props.alignment === alignment;
 
     render() {
-      const { theme } = this.props;
-      const className = this.isActive() ? unionClassNames(theme.button, theme.active) : theme.button;
+      const className = this.isActive() ? unionClassNames("button", "active") : "button";
       return (
         <div
-          className={theme.buttonWrapper}
+          className="buttonWrapper"
           onMouseDown={this.preventBubblingUp}
         >
           <button

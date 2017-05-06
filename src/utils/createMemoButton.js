@@ -6,7 +6,7 @@ export default ({ children }) => (
     activate = (event) => {
       event.preventDefault();
       event.stopPropagation();
-      this.props.addMemo();
+      this.props.handleMemo();
     }
 
     preventBubblingUp = (event) => { event.preventDefault(); }

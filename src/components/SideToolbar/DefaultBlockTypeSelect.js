@@ -1,8 +1,10 @@
 import React from 'react';
 
 import {
-  BoldButton,
-  ItalicButton,
+  AlignLeftButton,
+  AlignCenterButton,
+  AlignRightButton,
+  AlignDefaultButton,
 } from '../Buttons'; // eslint-disable-line import/no-unresolved
 
 import BlockTypeSelect from './BlockTypeSelect';
@@ -12,8 +14,10 @@ const DefaultBlockTypeSelect = ({ getEditorState, setEditorState }) => (
     getEditorState={getEditorState}
     setEditorState={setEditorState}
     structure={[
-      BoldButton,
-      ItalicButton,
+      AlignLeftButton,
+      AlignCenterButton,
+      AlignRightButton,
+      AlignDefaultButton,
     ]}
   />
 );

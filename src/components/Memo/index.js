@@ -1,8 +1,8 @@
 import decorateComponentWithProps from 'decorate-component-with-props';
 import Memo from './Memo';
 import MemoAdd from './MemoAdd';
+import MemoSideBar from './MemoSideBar';
 import memoStrategy from './memoStrategy';
-import memoifyStrategy from './memoifyStrategy';
 
 
 const memoPlugin = (config = {}) => {
@@ -14,22 +14,18 @@ const memoPlugin = (config = {}) => {
   // breaking change. 1px of an increased padding can break a whole layout.
 
   const {
-    component,
-    target = '_self',
+    target = '_memo',
   } = config;
 
   return {
     decorators: [
       {
-        strategy: memoifyStrategy,
-        component: decorateComponentWithProps(Memo, { target, component }),
-      },
-      {
         strategy: memoStrategy,
-        component: decorateComponentWithProps(Memo, { target, component }),
+        component: decorateComponentWithProps(Memo, { target }),
       },
     ],
     MemoAdd,
+    MemoSideBar,
   };
 };
 
