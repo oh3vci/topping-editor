@@ -1,10 +1,13 @@
 import React from 'react';
+import setKey from '../../utils/keyGenerator';
 
 // The component we render when we encounter a hyperlink in the text
 export default class Memo extends React.Component {
+
   render() {
+
     const {
-      target = '_memo',
+      target,
       className,
       dir,
       entityKey,
@@ -15,18 +18,20 @@ export default class Memo extends React.Component {
       decoratedText,
       ...otherProps
     } = this.props;
-    
-    const { content } = contentState.getEntity(this.props.entityKey).getData();
+
+    const { content, id } = contentState.getEntity(this.props.entityKey).getData();
 
 
     const props = {
       ...otherProps,
+      id,
       offsetKey,
+      entityKey,
       content,
       target,
       className,
     };
 
-    return <a {...props} />;
+    return <c {...props} />;
   }
 }

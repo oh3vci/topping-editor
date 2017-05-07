@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import modifier from './modifiers';
+import setKey from '../../utils/keyGenerator';
 
 export default class MemoAdd extends Component {
   // Start the popover closed
@@ -69,17 +70,28 @@ export default class MemoAdd extends Component {
   addMemo = () => {
     const { editorState, onChange, contentState } = this.props;
     const { content } = this.state;
-    onChange(modifier(editorState, content));
+    const id = setKey();
+
+    onChange(modifier(editorState, content, id));
 
     this.setState({
       content: '',
     });
+    const side = document.getElementsByClassName('side');
+    side[0].innerHTML += this.createMemo();
     this.closePopover();
   };
+
+  createMemo = () => {
+    return (
+      "<div>memo</div>"
+    )
+  }
 
   changeText = (evt) => {
     this.setState({ content: evt.target.value });
   };
+
 
 
 

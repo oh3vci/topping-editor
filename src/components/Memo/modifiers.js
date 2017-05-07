@@ -4,11 +4,12 @@ import {
   EditorState,
 } from 'draft-js';
 
-export default (editorState, content) => {
+export default (editorState, content, id) => {
   let entityKey = null;
   let newContent = content;
+  let newId = id;
   if (content !== '') {
-    entityKey = Entity.create('MEMO', 'MUTABLE', { content: newContent });  
+    entityKey = Entity.create('MEMO', 'MUTABLE', { content: newContent, id: newId });  
   }
 
   const newEditorState = RichUtils.toggleLink(

@@ -3,6 +3,8 @@ import Memo from './Memo';
 import MemoAdd from './MemoAdd';
 import MemoSideBar from './MemoSideBar';
 import memoStrategy from './memoStrategy';
+import setKey from '../../utils/keyGenerator';
+
 
 
 const memoPlugin = (config = {}) => {
