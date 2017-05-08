@@ -84,7 +84,7 @@ export default class MemoAdd extends Component {
 
   createMemo = () => {
     return (
-      "<div>memo</div>"
+      "<div class='added_memo'></div>"
     )
   }
 

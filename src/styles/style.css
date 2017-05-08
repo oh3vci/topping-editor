@@ -95,13 +95,14 @@ body {
   box-shadow: inset 0px 1px 8px -3px #ABABAB;
   background: #FEFEFE;
 }
+
 .blank {
   width: 8%;
 }
+
 .side {
   width: 15%;
   border: 1px solid #000;
-  background: black;
 }
 
 .added_memo {
