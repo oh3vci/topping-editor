@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
-import { EditorState } from 'draft-js';
-import Editor, { createEditorStateWithText } from 'draft-js-plugins-editor';
+import { EditorState, convertFromRaw, CompositeDecorator } from 'draft-js';
+import Editor from 'draft-js-plugins-editor';
+import axios from 'axios';
 
 import editorStyles from './styles/editorStyles.css';
 import createSideToolbarPlugin from './components/SideToolbar';
 import createInlineToolbarPlugin, { Separator } from './components/InlineToolbar';
 import createMemoPlugin from './components/Memo';
+import Memo from './components/Memo/Memo';
+import memoStrategy from './components/Memo/memoStrategy';
+
 
 import {
   FontSizeDownButton,
@@ -42,7 +46,6 @@ const inlineToolbarPlugin = createInlineToolbarPlugin({
 });
 const memoPlugin = createMemoPlugin();
 
-
 const { SideToolbar } = sideToolbarPlugin;
 const { InlineToolbar } = inlineToolbarPlugin;
 const { MemoAdd, MemoSideBar } = memoPlugin;
@@ -51,29 +54,68 @@ const plugins = [
   inlineToolbarPlugin,
   memoPlugin
 ];
-const text = 'test test';
+
+const essayId = document.getElementById("essayId").innerHTML;
+const decorator = new CompositeDecorator([
+  {
+    strategy: memoStrategy,
+    component: Memo,
+  }
+]);
 
 class App extends Component {
 
-  state = {
-    editorState: EditorState.createEmpty(),
-    //editorState: createEditorStateWithText(text),
-  };
+  constructor(props) {
+    super(props);
 
-  onChange = (editorState) => {
-    this.setState({
-      editorState,
+
+    this.state = {
+      editorState: EditorState.createEmpty(decorator),
+    }
+
+    this.onChange = (editorState) => this.setState({ editorState });
+    this.focus = () => this.editor.focus();
+  }
+
+
+  componentWillMount() {
+    return axios({
+      method: 'post',
+      url: '/editor/load',
+      data: {
+        essayId: essayId
+      },
+      xsrfCookieName: 'csrftoken',
+      xsrfHeaderName: 'X-CSRFToken',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'Content-Type': 'application/multipart/form-data; charset=UTF-8'
+      }
+    })
+    .then((response) => {
+      const editorState = EditorState.createWithContent(convertFromRaw(response.data), decorator);
+
+      this.setState({
+        editorState: editorState,
+      })
+    })
+    .catch((error) => {
+      const editorState = EditorState.createEmpty(decorator);
+
+      this.setState({
+        editorState: editorState,
+      })
     });
-  };
+  }
 
-  focus = () => {
-    this.editor.focus();
-  };
 
   render() {
+    const { editorState } = this.state
     return (
       <div className="container">
-        <SubmitButton />
+        <SubmitButton
+          editorState={editorState}
+        />
         <div className="wrapper">
           <div className="editor" onClick={this.focus}>
             <Editor
@@ -89,9 +131,9 @@ class App extends Component {
                   fontSize: '80%',
                 },
               }}
-              editorState={this.state.editorState}
+              editorState={editorState}
               onChange={this.onChange}
-              placeholder="Write something..."
+              placeholder="토핑 해주세요!"
               plugins={plugins}
               ref={(element) => { this.editor = element; }}
             />
@@ -106,7 +148,7 @@ class App extends Component {
         </div>
         <MemoAdd
           ref={(element) => { memoAddElement = element; }}
-          editorState={this.state.editorState}
+          editorState={editorState}
           onChange={this.onChange}
           inlineToolbarElement={inlineToolbarElement}
         />
