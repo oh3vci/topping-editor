@@ -5,11 +5,7 @@ import setKey from '../../utils/keyGenerator';
 export default class Memo extends React.Component {
 
   render() {
-
     const {
-      target,
-      className,
-      dir,
       entityKey,
       offsetKey,
       getEditorState,
@@ -19,19 +15,15 @@ export default class Memo extends React.Component {
       ...otherProps
     } = this.props;
 
-    const { content, id } = contentState.getEntity(this.props.entityKey).getData();
+    const { content, memoKey } = contentState.getEntity(this.props.entityKey).getData();
 
 
     const props = {
       ...otherProps,
-      id,
-      offsetKey,
-      entityKey,
+      className: memoKey,
       content,
-      target,
-      className,
     };
 
-    return <c {...props} />;
+    return <memo {...props} />;
   }
 }

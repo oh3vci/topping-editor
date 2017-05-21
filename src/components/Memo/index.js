@@ -3,11 +3,10 @@ import Memo from './Memo';
 import MemoAdd from './MemoAdd';
 import MemoSideBar from './MemoSideBar';
 import memoStrategy from './memoStrategy';
-import setKey from '../../utils/keyGenerator';
 
 
 
-const memoPlugin = (config = {}) => {
+const memoPlugin = () => {
   // Styles are overwritten instead of merged as merging causes a lot of confusion.
 
   // Why? Because when merging a developer needs to know all of the underlying
@@ -15,15 +14,11 @@ const memoPlugin = (config = {}) => {
   // errors when upgrading as basically every styling change would become a major
   // breaking change. 1px of an increased padding can break a whole layout.
 
-  const {
-    target = '_memo',
-  } = config;
-
   return {
     decorators: [
       {
         strategy: memoStrategy,
-        component: decorateComponentWithProps(Memo, { target }),
+        component: Memo,
       },
     ],
     MemoAdd,

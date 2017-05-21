@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import modifier from './modifiers';
 import setKey from '../../utils/keyGenerator';
 
+
 export default class MemoAdd extends Component {
   // Start the popover closed
   state = {
     content: '',
     open: false,
-    isSet: false,
   };
 
   // When the popover is open and users click anywhere on the page,
@@ -49,7 +49,6 @@ export default class MemoAdd extends Component {
   openPopover = () => {
     if (!this.state.open) {
       this.preventNextClose = true;
-      // eslint-disable-next-line react/no-find-dom-node
       const toolbarElement = ReactDOM.findDOMNode(this.props.inlineToolbarElement);
       this.setPosition(toolbarElement);
       setTimeout(() => {
@@ -68,25 +67,18 @@ export default class MemoAdd extends Component {
   };
 
   addMemo = () => {
-    const { editorState, onChange, contentState } = this.props;
+    const { editorState, onChange } = this.props;
     const { content } = this.state;
-    const id = setKey();
+    const memoKey = setKey();
 
-    onChange(modifier(editorState, content, id));
+    onChange(modifier(editorState, content, memoKey));
 
     this.setState({
       content: '',
     });
-    const side = document.getElementsByClassName('side');
-    side[0].innerHTML += this.createMemo();
+
     this.closePopover();
   };
-
-  createMemo = () => {
-    return (
-      "<div class='added_memo'></div>"
-    )
-  }
 
   changeText = (evt) => {
     this.setState({ content: evt.target.value });
@@ -94,10 +86,8 @@ export default class MemoAdd extends Component {
 
 
 
-
-
 /*
-  handleLinkInput(e, direct = false) {
+  handleLinkInput = (e, direct = false) => {
     if (direct !== true) {
       e.preventDefault();
       e.stopPropagation();
@@ -110,11 +100,11 @@ export default class MemoAdd extends Component {
     }
     const currentBlock = getCurrentBlock(editorState);
     let selectedEntity = '';
-    let linkFound = false;
+    let memoFound = false;
     currentBlock.findEntityRanges((character) => {
       const entityKey = character.getEntity();
       selectedEntity = entityKey;
-      return entityKey !== null && Entity.get(entityKey).getType() === CEntity.LINK;
+      return entityKey !== null && Entity.get(entityKey).getType() === 'MEMO';
     }, (start, end) => {
       let selStart = selection.getAnchorOffset();
       let selEnd = selection.getFocusOffset();
@@ -123,11 +113,11 @@ export default class MemoAdd extends Component {
         selEnd = selection.getAnchorOffset();
       }
       if (start === selStart && end === selEnd) {
-        linkFound = true;
-        const { url } = Entity.get(selectedEntity).getData();
+        memoFound = true;
+        const { content } = Entity.get(selectedEntity).getData();
         this.setState({
-          showURLInput: true,
-          urlInputValue: url,
+          showMemoInput: true,
+          memoContent: content,
         }, () => {
           setTimeout(() => {
             this.urlinput.focus();
@@ -136,9 +126,9 @@ export default class MemoAdd extends Component {
         });
       }
     });
-    if (!linkFound) {
+    if (!memoFound) {
       this.setState({
-        showURLInput: true,
+        showMemoInput: true,
       }, () => {
         setTimeout(() => {
           this.urlinput.focus();
@@ -170,7 +160,7 @@ export default class MemoAdd extends Component {
             className="addMemoInput"
             onKeyDown={(e) => this.onKeyDown(e)}
             onChange={this.changeText}
-            placeholder="메모를 입력해주세요 …"
+            placeholder="메모를 입력해주세요…"
             value={this.state.content}
           />
           <button
