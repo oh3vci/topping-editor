@@ -163,20 +163,12 @@ export default class MemoAdd extends Component {
             placeholder="메모를 입력해주세요…"
             value={this.state.content}
           />
-          <button
-            className="addMemoConfirmButton"
-            type="button"
-            onClick={this.addMemo}
-          >
-            +
-          </button>
-          <button
-            className="addMemoConfirmButton"
-            type="button"
+          <span
+            className="addMemoCloseButton"
             onClick={this.closePopover}
           >
             x
-          </button>
+          </span>
         </div>
       </div>
     );

@@ -19,15 +19,36 @@
 }
 
 .addMemoPopover {
-  background: #8ACED0;
+  background: rgba(10,10,10,0.8);
   position: absolute;
-  height: 54px;
-  width: 300px;
   border-radius: 2px;
-  padding: 10px;
+  padding: 4px 10px;
   z-index: 1000;
   transition: 0.5s linear height;
 }
+
+.addMemoPopover:after, .addMemoPopover:before {
+  top: 100%;
+  left: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.addMemoPopover:after {
+  border-color: rgba(255, 255, 255, 0);
+  border-width: 4px;
+  margin-left: -4px;
+}
+.addMemoPopover:before {
+  border-top-color: rgba(10,10,10,0.8);
+  border-width: 6px;
+  margin-left: -6px;
+}
+
 
 .addMemoClosedPopover {
   display: none;
@@ -79,11 +100,17 @@
 }
 
 .addMemoInput {
-  cursor: text;
-  padding: 4px;
-  width: 78%;
+  box-sizing: border-box;
   border-radius: 2px;
-  margin-bottom: 1em;
+  display: block;
+  width: 100%;
+  padding: 5px;
+  padding-right: 20px;
+  border: none;
+  background: none;
+  color: #fff;
+  font-size: .9em;
+  font-weight: 100;
 }
 
 .addMemoInput:focus {
@@ -96,31 +123,21 @@
   box-shadow: none;
 }
 
-.addMemoConfirmButton {
-  background: #fff;
-  padding: 0;
-  color: #888;
-  margin: 0;
-  border-radius: 0.4em;
+.addMemoCloseButton {
+  position: absolute;
+  top: 6px;
+  right: 10px;
+  font-size: 20px;
   cursor: pointer;
-  height: 2.1em;
-  width: 8%;
-  font-size: 1em;
-  line-height: 2.1em;
-  margin: 0;
-  margin-left: 1%;
+  color: #fff;
 }
 
-.addMemoConfirmButton:focus {
+.addMemoCloseButton:focus {
   outline: 0;
 }
 
-.addMemoConfirmButton:hover {
-  background: #f3f3f3;
-}
-
-.addMemoConfirmButton:active {
-  background: #e6e6e6;
+.addMemoCloseButton:hover {
+  color: #8ACED0;
 }
 
 .addMemoError {
