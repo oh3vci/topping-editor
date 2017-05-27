@@ -3,7 +3,6 @@ import { EditorState, convertFromRaw, CompositeDecorator } from 'draft-js';
 import Editor from 'draft-js-plugins-editor';
 import axios from 'axios';
 
-import editorStyles from './styles/editorStyles.css';
 import createSideToolbarPlugin from './components/SideToolbar';
 import createInlineToolbarPlugin, { Separator } from './components/InlineToolbar';
 import createMemoPlugin from './components/Memo';
@@ -112,11 +111,14 @@ class App extends Component {
   render() {
     const { editorState } = this.state
     return (
-      <div className="container">
-        <SubmitButton
-          editorState={editorState}
-        />
-        <div className="wrapper">
+      <div className="wrap">
+        <div className="header">
+          <SubmitButton
+            editorState={editorState}
+          />
+        </div>
+        <div className="container">
+          <div className="blank-side" />
           <div className="editor" onClick={this.focus}>
             <Editor
               customStyleMap={{
@@ -142,7 +144,7 @@ class App extends Component {
               ref={(element) => { inlineToolbarElement = element; }}
             />
           </div>
-          <div className="side">
+          <div className="memo-side">
             <MemoSideBar />
           </div>
         </div>

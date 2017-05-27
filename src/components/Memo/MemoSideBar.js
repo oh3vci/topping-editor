@@ -4,7 +4,7 @@ export default class MemoSideBar extends Component {
 
   getMemos = () => {
     let list = document.getElementsByTagName("memo");
-    let sideTop = document.getElementsByClassName("side")[0];
+    let sideTop = document.getElementsByClassName("memo-side")[0];
     let memoList = [];
     let index = 0;
 
@@ -48,8 +48,8 @@ export default class MemoSideBar extends Component {
 
   render() {
     const memoList = this.getMemos();
-    const wrapperList = document.getElementsByClassName("memo-wrapper");
-    const sideTop = document.getElementsByClassName("side")[0];
+    //const wrapperList = document.getElementsByClassName("memo-wrapper");
+    const sideTop = document.getElementsByClassName("memo-side")[0];
     const sideWrapper = document.getElementsByClassName("side-wrapper");
     let left = 10;
 
