@@ -4,9 +4,14 @@ import createInlineStyleButton from '../../../utils/createInlineStyleButton';
 export default createInlineStyleButton({
   style: 'COLOR',
   children: (
-    <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-      <path d="M15.6 10.79c.97-.67 1.65-1.77 1.65-2.79 0-2.26-1.75-4-4-4H7v14h7.04c2.09 0 3.71-1.7 3.71-3.79 0-1.52-.86-2.82-2.15-3.42zM10 6.5h3c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-3v-3zm3.5 9H10v-3h3.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5z" />
-      <path d="M0 0h24v24H0z" fill="none" />
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 68.03 68.03" enable-background="new 0 0 68.03 68.03">
+      <g>
+      	<rect x="12.783" y="53.143" fill="#87C6C8" width="42.555" height="5.832"/>
+      	<g>
+      		<path d="M20.526,48.389h-7.833L29.469,9.104h8.827L55.13,48.336h-7.95l-3.799-8.869H24.325L20.526,48.389z M33.912,17.138
+      			l-6.897,16.12h13.677L33.912,17.138z"/>
+      	</g>
+      </g>
     </svg>
   ),
 });

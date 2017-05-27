@@ -4,9 +4,14 @@ import createInlineStyleButton from '../../../utils/createInlineStyleButton';
 export default createInlineStyleButton({
   style: 'SIZE_UP',
   children: (
-    <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-      <path d="M15.6 10.79c.97-.67 1.65-1.77 1.65-2.79 0-2.26-1.75-4-4-4H7v14h7.04c2.09 0 3.71-1.7 3.71-3.79 0-1.52-.86-2.82-2.15-3.42zM10 6.5h3c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-3v-3zm3.5 9H10v-3h3.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5z" />
-      <path d="M0 0h24v24H0z" fill="none" />
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 68.03 68.03" enable-background="new 0 0 68.03 68.03">
+      <g>
+      	<g>
+      		<path d="M17.056,60.071H9.722l15.709-36.786h8.266l15.764,36.737h-7.444l-3.558-8.306H20.614L17.056,60.071z M29.591,30.809
+      			l-6.459,15.095H35.94L29.591,30.809z"/>
+      	</g>
+      	<polygon points="40.611,23.285 49.461,7.96 58.31,23.285 	"/>
+      </g>
     </svg>
   ),
 });
