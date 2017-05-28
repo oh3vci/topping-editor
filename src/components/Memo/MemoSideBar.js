@@ -4,7 +4,7 @@ export default class MemoSideBar extends Component {
 
   getMemos = () => {
     let list = document.getElementsByTagName("memo");
-    let sideTop = document.getElementsByClassName("memo-side")[0];
+    let side = document.getElementsByClassName("memo-side")[0];
     let memoList = [];
     let index = 0;
 
@@ -22,12 +22,13 @@ export default class MemoSideBar extends Component {
 
     for (let i = 0; i < list.length; i++) {
       let memoClass = list[i].getAttribute("class")
-      let memoTop = document.getElementsByClassName(memoClass)[0];
+      let memoTop = document.getElementsByClassName(memoClass)[0].getBoundingClientRect().top;
+      let sideTop = side.getBoundingClientRect().top;
       if (memoList.length === 0) {
-        memoList.push({key: memoClass, index: index, top: memoTop.getBoundingClientRect().top - sideTop.getBoundingClientRect().top});
+        memoList.push({key: memoClass, index: index, top: memoTop - sideTop});
         index++;
       } else if (list[i-1].getAttribute("class") !== memoClass) {
-        memoList.push({key: memoClass, index: index, top: memoTop.getBoundingClientRect().top - sideTop.getBoundingClientRect().top});
+        memoList.push({key: memoClass, index: index, top: memoTop - sideTop});
         index++;
       }
     }
@@ -46,12 +47,25 @@ export default class MemoSideBar extends Component {
     return keys.indexOf(memoKey) === -1;
   }
 
+  showMemo = (memoKey) => {
+    let text = document.getElementsByClassName(memoKey)[0];
+    text.style.backgroundColor = "#8ACED0";
+
+    /*
+    range.setStart(text.childNodes[0], 1);
+    range.collapse(true);
+    sel.removeAllRanges();
+    return sel.addRange(range);
+
+    */
+  }
+
   render() {
     const memoList = this.getMemos();
     //const wrapperList = document.getElementsByClassName("memo-wrapper");
     const sideTop = document.getElementsByClassName("memo-side")[0];
     const sideWrapper = document.getElementsByClassName("side-wrapper");
-    let left = 10;
+    let left = 0;
 
     return (
       <div className="side-wrapper">
@@ -66,6 +80,7 @@ export default class MemoSideBar extends Component {
                     key={memo.index}
                     className={memo.key + " memo-exist"}
                     style={{top: memo.top, left: left}}
+                    onClick={this.showMemo(memo.key)}
                   >
                     <svg version="1.1"  xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="14" height="14" viewBox="0 0 68.03 68.03" >
                       <path d="M59.533-0.009H8.498c-2.349,0-4.252,1.902-4.252,4.253v59.541c0,2.35,1.904,4.254,4.252,4.254h38.277
@@ -89,6 +104,7 @@ export default class MemoSideBar extends Component {
                     key={memo.index}
                     className={memo.key + " memo-exist"}
                     style={{top: memo.top, left: left}}
+                    onClick={this.showMemo(memo.key)}
                   >
                     <svg version="1.1"  xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="14" height="14" viewBox="0 0 68.03 68.03" >
                       <path d="M59.533-0.009H8.498c-2.349,0-4.252,1.902-4.252,4.253v59.541c0,2.35,1.904,4.254,4.252,4.254h38.277
