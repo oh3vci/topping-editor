@@ -2,7 +2,23 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import modifier from './modifiers';
 import setKey from '../../utils/keyGenerator';
+import { getVisibleSelectionRect } from 'draft-js';
 
+
+const toolbarHeight = 42;
+
+const getRelativeParent = (element) => {
+  if (!element) {
+    return null;
+  }
+
+  const position = window.getComputedStyle(element).getPropertyValue('position');
+  if (position !== 'static') {
+    return element;
+  }
+
+  return getRelativeParent(element.parentElement);
+};
 
 export default class MemoAdd extends Component {
   // Start the popover closed
@@ -10,6 +26,7 @@ export default class MemoAdd extends Component {
     content: '',
     open: false,
   };
+
 
   // When the popover is open and users click anywhere on the page,
   // the popover should close
@@ -34,7 +51,7 @@ export default class MemoAdd extends Component {
       this.closePopover();
     }
   }
-
+/*
   setPosition = (toolbarElement) => {
     const position = {
       top: toolbarElement.offsetTop,
@@ -57,11 +74,39 @@ export default class MemoAdd extends Component {
       }, 0);
     }
   };
+*/
+  openPopover = () => {
+    if (!this.state.open) {
+      this.preventNextClose = true;
+      let content = this.props.content;
+
+      let position;
+
+      const relativeParent = getRelativeParent(this.inputElement.parentElement);
+      const relativeRect = relativeParent ? relativeParent.getBoundingClientRect() : document.body.getBoundingClientRect();
+      const selectionRect = getVisibleSelectionRect(window);
+      position = {
+        top: (selectionRect.top - relativeRect.top) - toolbarHeight,
+        left: (selectionRect.left - relativeRect.left) + (selectionRect.width / 2),
+        transform: 'translate(-50%) scale(1)',
+        transition: 'transform 0.15s cubic-bezier(.3,1.2,.2,1)',
+      };
+      this.setState({ position });
+      setTimeout(() => {
+        setTimeout(() => this.inputElement.focus(), 0);
+        this.setState({ open: true });
+        if (content) {
+          this.setState({ content: content });
+        }
+      }, 0);
+    }
+  }
 
   closePopover = () => {
-    if (!this.preventNextClose && this.state.open) {
-      this.setState({ open: false });
-    }
+    this.setState({
+      content: '',
+      open: false
+    });
 
     this.preventNextClose = false;
   };
@@ -85,62 +130,6 @@ export default class MemoAdd extends Component {
   };
 
 
-
-/*
-  handleLinkInput = (e, direct = false) => {
-    if (direct !== true) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    const { editorState } = this.props;
-    const selection = editorState.getSelection();
-    if (selection.isCollapsed()) {
-      this.props.focus();
-      return;
-    }
-    const currentBlock = getCurrentBlock(editorState);
-    let selectedEntity = '';
-    let memoFound = false;
-    currentBlock.findEntityRanges((character) => {
-      const entityKey = character.getEntity();
-      selectedEntity = entityKey;
-      return entityKey !== null && Entity.get(entityKey).getType() === 'MEMO';
-    }, (start, end) => {
-      let selStart = selection.getAnchorOffset();
-      let selEnd = selection.getFocusOffset();
-      if (selection.getIsBackward()) {
-        selStart = selection.getFocusOffset();
-        selEnd = selection.getAnchorOffset();
-      }
-      if (start === selStart && end === selEnd) {
-        memoFound = true;
-        const { content } = Entity.get(selectedEntity).getData();
-        this.setState({
-          showMemoInput: true,
-          memoContent: content,
-        }, () => {
-          setTimeout(() => {
-            this.urlinput.focus();
-            this.urlinput.select();
-          }, 0);
-        });
-      }
-    });
-    if (!memoFound) {
-      this.setState({
-        showMemoInput: true,
-      }, () => {
-        setTimeout(() => {
-          this.urlinput.focus();
-        }, 0);
-      });
-    }
-  }
-*/
-
-
-
-
   render() {
     const { open, position } = this.state;
     const popoverClassName = open ?
@@ -155,12 +144,13 @@ export default class MemoAdd extends Component {
           style={position}
         >
           <input
+            maxLength="300"
             ref={(element) => { this.inputElement = element; }}
             type="text"
             className="addMemoInput"
             onKeyDown={(e) => this.onKeyDown(e)}
             onChange={this.changeText}
-            placeholder="메모를 입력해주세요…"
+            placeholder="메모를 입력해주세요"
             value={this.state.content}
           />
           <span
