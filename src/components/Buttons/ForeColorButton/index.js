@@ -4,7 +4,7 @@ import createInlineStyleButton from '../../../utils/createInlineStyleButton';
 export default createInlineStyleButton({
   style: 'COLOR',
   children: (
-    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 68.03 68.03" enable-background="new 0 0 68.03 68.03">
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 68.03 68.03" enableBackground="new 0 0 68.03 68.03">
       <g>
       	<rect x="12.783" y="53.143" fill="#87C6C8" width="42.555" height="5.832"/>
       	<g>
