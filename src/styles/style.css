@@ -11,19 +11,13 @@ body {
   width: 100%;
 }
 
-.header {
-  width: 100%;
-  border-bottom: 0.5px solid #A6A8AB;
-  background-color: #FFFFFF;
-}
-
-.container {
+.header, .container {
   display: inline-block;;
   width: 100%;
-  padding: 50px 200px 0;
+  padding: 20px 200px 0;
 }
 
-.container:after {
+.header:after, .container:after {
   display: block;
   clear: both;
   content: ''
@@ -32,18 +26,25 @@ body {
 .blank-side {
   float: left;
   position: relative;
-  left: -200px;
-  width: 180px;
-  margin-right: -180px;
+  left: -300px;
+  width: 280px;
+  margin-right: -280px;
+}
+
+.center, .editor {
+  float: left;
+  width: 100%;
+  background-color: #FFFFFF;
+}
+
+.center {
+  text-align: center;
 }
 
 .editor {
-  float: left;
-  width: 100%;
-  cursor: text;
   padding: 18px;
+  cursor: text;
   border: 0.5px solid #A6A8AB;
-  background-color: #FFFFFF;
 }
 
 .editor :global(.public-DraftEditor-content) {
@@ -54,158 +55,83 @@ body {
 .memo-side {
   float: left;
   position: relative;
-  left: 200px;
-  width: 180px;
-  margin-left: -180px;
+  left: 300px;
+  width: 280px;
+  margin-left: -280px;
 }
-
-
-/*** button ***/
-
-.progress-button {
-  position: relative;
-  display: inline-block;
-  text-align: center;
-}
-
-.progress-button button {
-  display: block;
-	margin: 0 auto;
-	padding: 0;
-	width: 120px;
-	height: 40px;
-	border: 1px solid #8ACED0;
-	border-radius: 40px;
-	background: transparent;
-	color: #8ACED0;
-	letter-spacing: 1px;
-	font-size: 16px;
-	/*font-family: 'Montserrat', sans-serif;*/
-	-webkit-transition: background-color 0.3s, color 0.3s, width 0.3s, border-width 0.3s, border-color 0.3s;
-	transition: background-color 0.3s, color 0.3s, width 0.3s, border-width 0.3s, border-color 0.3s;
-}
-
-.progress-button button:hover {
-	background-color: #8ACED0;
-	color: #fff;
-}
-
-.progress-button button:focus {
-	outline: none;
-}
-
-.progress-button svg {
-	position: absolute;
-	top: 0;
-	left: 50%;
-	-webkit-transform: translateX(-50%);
-	transform: translateX(-50%);
-	pointer-events: none;
-}
-
-.progress-button svg path {
-	opacity: 0;
-	fill: none;
-}
-
-.progress-button svg.progress-circle path {
-	stroke: #8ACED0;
-	stroke-width: 5;
-}
-
-.progress-button svg.checkmark path,
-.progress-button svg.cross path {
-	stroke: #fff;
-	stroke-linecap: round;
-	stroke-width: 4;
-	-webkit-transition: opacity 0.1s;
-	transition: opacity 0.1s;
-}
-
-.loading.progress-button button {
-	width: 40px; /* make a circle */
-	border-width: 5px;
-	border-color: #ddd;
-	background-color: transparent;
-	color: #fff;
-}
-
-.loading.progress-button span {
-	-webkit-transition: opacity 0.15s;
-	transition: opacity 0.15s;
-}
-
-.loading.progress-button span,
-.success.progress-button span,
-.error.progress-button span {
-	opacity: 0; /* keep it hidden in all states */
-}
-
-/* Transition for when returning to default state */
-.progress-button button span {
-	-webkit-transition: opacity 0.3s 0.1s;
-	transition: opacity 0.3s 0.1s;
-}
-
-.success.progress-button button,
-.error.progress-button button {
-	-webkit-transition: background-color 0.3s, width 0.3s, border-width 0.3s;
-	transition: background-color 0.3s, width 0.3s, border-width 0.3s;
-}
-
-.success.progress-button button {
-	border-color: #8ACED0;
-	background-color: #8ACED0;
-}
-
-.error.progress-button button {
-	border-color: #FB797E;
-	background-color: #FB797E;
-}
-
-.loading.progress-button svg.progress-circle path,
-.success.progress-button svg.checkmark path,
-.error.progress-button svg.cross path {
-	opacity: 1;
-	-webkit-transition: stroke-dashoffset 0.3s;
-	transition: stroke-dashoffset 0.3s;
-}
-
-.elastic.progress-button button {
-	-webkit-transition: background-color 0.3s, color 0.3s, width 0.3s cubic-bezier(0.25, 0.25, 0.4, 1), border-width 0.3s, border-color 0.3s;
-	-webkit-transition: background-color 0.3s, color 0.3s, width 0.3s cubic-bezier(0.25, 0.25, 0.4, 1.6), border-width 0.3s, border-color 0.3s;
-	transition: background-color 0.3s, color 0.3s, width 0.3s cubic-bezier(0.25, 0.25, 0.4, 1.6), border-width 0.3s, border-color 0.3s;
-}
-
-.loading.elastic.progress-button button {
-	-webkit-transition: background-color 0.3s, color 0.3s, width 0.3s cubic-bezier(0.6, 0, 0.75, 0.75), border-width 0.3s, border-color 0.3s;
-	-webkit-transition: background-color 0.3s, color 0.3s, width 0.3s cubic-bezier(0.6, -0.6, 0.75, 0.75), border-width 0.3s, border-color 0.3s;
-	transition: background-color 0.3s, color 0.3s, width 0.3s cubic-bezier(0.6, -0.6, 0.75, 0.75), border-width 0.3s, border-color 0.3s;
-}
-
-
-
-/**************************************************/
 
 
 .blank-side, .memo-side {
-  position: relative;
-  min-height: 1px;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: 10px;
+  padding-left: 10px;
   float: left;
 }
 
-
-.blank {
-  width: 8%;
+.blank-side {
+  width: 15%;
 }
 
 .memo-side {
   width: 15%;
   border: 0px solid #000;
-  padding :15px;
 }
+
+
+
+/*header 부분*/
+
+.subject {
+  position: relative;
+  float: left;
+  text-align: center;
+}
+
+.subject-title {
+  position: relative;
+  float: left;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #A6A8AB;
+  margin: 0 18px;
+}
+
+.submit-rename, .rename-text, .change-form, .submit-rename-text {
+  position: relative;
+  float: left;
+}
+
+.rename-text {
+  border: 0.5px solid #A6A8AB;
+  margin-right: 18px;
+}
+
+.submit-rename-text, .change-form svg {
+  cursor: pointer;
+  fill: #8ACED0;
+}
+
+.submit-button {
+  position: relative;
+  float: right;
+}
+
+.submit-button button {
+  box-sizing: border-box;
+  display: inline-block;
+  border: solid transparent;
+  background: #8ACED0;
+  color: #fff;
+  padding: 4px 15px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+
+
+
+
 
 .memo-exist {
   font-size: 18px;
@@ -226,12 +152,98 @@ body {
   top: 0;
 }
 
-a {
-  background-color: #8ACED0 !important;
-  color: #FFFFFF !important;
+.memo-exist svg:hover {
+  position: absolute;
+  cursor: pointer;
+  fill: #8ACED0;
+  top: 0;
 }
 
 
 memo {
-  background-color: #8ACED0 !important;
+  border-bottom: 1px solid #8ACED0 !important;
+}
+
+
+
+
+/************* modal *************/
+
+.backdrop-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0,0,0,0.5);
+  padding: 100px;
+  z-index: 999;
+}
+
+.complete-modal {
+  background-color: #fff;
+  border-radius: 5px;
+  max-width: 500px;
+  min-height: 300px;
+  margin: 0 auto;
+}
+
+.modal-subtitle {
+  background-color: #8ACED0;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 5px 5px 0 0;
+  font-weight: bold;
+}
+
+.modal-contents div {
+  text-align: center;
+}
+
+.modal-contents .complete-icon {
+  padding-top: 40px;
+}
+
+.modal-contents .complete-icon svg {
+  fill: #8ACED0;
+  width: 50px;
+  height: 50px;
+}
+
+.modal-contents .complete-inform {
+  font-size: 18px;
+  font-weight: bold;
+  color: #888;
+  padding: 20px 0;
+}
+
+.modal-contents .complete-inform-detail {
+  font-size: 12px;
+  color: #888;
+}
+
+.modal-contents .complete-link {
+    padding-bottom: 20px;
+}
+
+.modal-contents .complete-link a {
+  color: #8ACED0;
+  font-size: 12px;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.modal-contents .modal-close {
+  padding-bottom: 40px;
+}
+
+.modal-contents .modal-close button {
+  display: block;
+  border-radius: 3px;
+  color: #fff;
+  font-weight: bold;
+  padding: 2px 20px;
+  background: #8ACED0;
+  border: none;
+  margin: 0 auto;
 }
