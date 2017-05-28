@@ -149,3 +149,77 @@
   opacity: 1;
   color: red;
 }
+
+
+
+.edit-memo {
+  background: #FFF;
+  border: 1px solid #8ACED0;
+  font-size: .8em;
+  position: absolute;
+  border-radius: 2px;
+  z-index: 1000;
+  box-shadow: 3px 3px rgba(10,10,10,0.3);
+}
+
+.memo-content {
+  width: 180px;
+  height: 170px;
+  margin-top: 10px;
+  padding-left: 10px;
+  padding-right: 5px;
+  margin-right: 5px;
+  overflow-y: auto;
+}
+
+
+.memo-content::-webkit-scrollbar {
+  width: 5px;
+}
+
+.memo-content::-webkit-scrollbar-button {
+  width: 5px;
+  height:5px;
+  cursor: pointer;
+}
+
+.memo-content::-webkit-scrollbar-track {
+  border-radius:20px;
+}
+.memo-content::-webkit-scrollbar-thumb {
+  background-clip: padding-box;
+  background: #8ACED0;
+  border: thin solid #8ACED0;
+  border-radius: 20px;
+}
+.memo-content::-webkit-scrollbar-thumb:hover {
+  background: #8ACED0;
+  border: thin solid #8ACED0;
+  cursor: pointer;
+}
+
+.memo-button {
+  width: 100%;
+  text-align: center;
+}
+
+.memo-button-wrapper {
+  display: inline-block;
+  width: 50%;
+}
+
+.memo-button button {
+  width: 50%;
+  background: none;
+  border: none;
+  float: right;
+  display: inline-block;
+  padding: 0 5px;
+  margin: 5px 0;
+  cursor: pointer;
+}
+
+.memo-button button:hover {
+  color: #8ACED0;
+  font-weight: bold;
+}
