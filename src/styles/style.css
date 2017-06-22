@@ -14,7 +14,14 @@ body {
 .header, .container {
   display: inline-block;;
   width: 100%;
-  padding: 20px 200px 0;
+  min-width: 760px;
+  padding-left: 20%;
+  padding-right: 20%;
+}
+
+.container {
+  padding-top: 20px;
+  padding-bottom: 40px;
 }
 
 .header:after, .container:after {
@@ -42,13 +49,18 @@ body {
 }
 
 .editor {
-  padding: 18px;
+  padding: 10%;
   cursor: text;
   border: 0.5px solid #A6A8AB;
+  box-shadow: 0px 0px 5px 1px rgba(110,110,110,0.3);
+}
+
+.editor_content {
+  padding: 10% 0;
 }
 
 .editor :global(.public-DraftEditor-content) {
-  min-height: 140px;
+  min-height: 1075px;
 }
 
 
@@ -79,59 +91,102 @@ body {
 
 
 /*header 부분*/
-
-.subject {
-  position: relative;
+/***** essay-title *****/
+.wrapper-essay-title {
+  position: relative;;
   float: left;
-  text-align: center;
+  width: 70%;
+  height: 100%;
 }
 
-.subject-title {
-  position: relative;
-  float: left;
-  text-align: center;
-  font-size: 18px;
-  font-weight: bold;
-  color: #A6A8AB;
-  margin: 0 18px;
-}
-
-.submit-rename, .rename-text, .change-form, .submit-rename-text {
-  position: relative;
-  float: left;
-}
-
-.rename-text {
-  border: 0.5px solid #A6A8AB;
-  margin-right: 18px;
-}
-
-.submit-rename-text, .change-form svg {
+.wrapper-essay-title svg {
   cursor: pointer;
   fill: #8ACED0;
 }
 
-.submit-button {
+.rename-essay-title, .default-essay-title {
+  float: left;
+  min-width: 300px;
+  max-width: 600px;
+}
+
+/* default-essay-title */
+
+.default-essay-title .essay-title {
+  position: relative;
+  float: left;
+  font-size: 22px;
+  font-weight: normal;
+  color: #A6A8AB;
+  margin-right: 5px;
+}
+
+.default-essay-title .change-form {
+  float: left;
+}
+
+
+
+/* rename-essay-title */
+
+.rename-essay-title input {
+  position: relative;
+  float: left;
+  font-size: 22px;
+  font-weight: normal;
+  color: #A6A8AB;
+  margin-right: 5px;
+  max-width: 600px;
+  min-width: 200px;
+
+  border: none;
+  margin-right: 18px;
+}
+
+
+
+/***** submit-button *****/
+
+.save-essay {
   position: relative;
   float: right;
+  width: 30%;
+  height: 100%;
+  min-width: 250px;
+}
+
+.auto-save-time {
+  display: block;
+  position: relative;
+  float: right;
+  color: #666;
+  font-size: 10px;
+}
+
+.submit-button {
+  display: block;
+  position: relative;
+  float: right;
+  height: 100%;
 }
 
 .submit-button button {
   box-sizing: border-box;
-  display: inline-block;
   border: solid transparent;
   background: #8ACED0;
   color: #fff;
+  margin-left: 12px;
   padding: 4px 15px;
   border-radius: 4px;
   font-weight: bold;
   font-size: 14px;
+  min-width: 90px;
 }
 
 
 
 
-
+/****** memo ******/
 
 .memo-exist {
   font-size: 18px;
@@ -180,7 +235,7 @@ memo {
   z-index: 999;
 }
 
-.complete-modal {
+.complete-modal, .fail-modal {
   background-color: #fff;
   border-radius: 5px;
   max-width: 500px;
@@ -200,44 +255,51 @@ memo {
   text-align: center;
 }
 
-.modal-contents .complete-icon {
+.complete-icon, .fail-icon {
   padding-top: 40px;
 }
 
-.modal-contents .complete-icon svg {
-  fill: #8ACED0;
+.complete-icon svg, .fail-icon svg {
   width: 50px;
   height: 50px;
 }
 
-.modal-contents .complete-inform {
+.complete-icon svg {
+  fill: #8ACED0;
+}
+
+.fail-icon svg {
+  fill: #888;
+}
+
+.complete-inform, .fail-inform {
   font-size: 18px;
   font-weight: bold;
   color: #888;
   padding: 20px 0;
 }
 
-.modal-contents .complete-inform-detail {
+.complete-inform-detail, .fail-inform-detail {
   font-size: 12px;
   color: #888;
 }
 
-.modal-contents .complete-link {
-    padding-bottom: 20px;
+.complete-link, .fail-inform-detail {
+  padding-bottom: 20px;
 }
 
-.modal-contents .complete-link a {
+.complete-link a {
   color: #8ACED0;
   font-size: 12px;
   font-weight: bold;
   text-decoration: underline;
 }
 
-.modal-contents .modal-close {
+.modal-close {
   padding-bottom: 40px;
 }
 
-.modal-contents .modal-close button {
+.modal-close button {
   display: block;
   border-radius: 3px;
   color: #fff;

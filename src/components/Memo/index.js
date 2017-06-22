@@ -1,4 +1,4 @@
-import decorateComponentWithProps from 'decorate-component-with-props';
+//import decorateComponentWithProps from 'decorate-component-with-props';
 import Memo from './Memo';
 import MemoAdd from './MemoAdd';
 import MemoSideBar from './MemoSideBar';

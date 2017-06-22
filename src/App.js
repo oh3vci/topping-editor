@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   EditorState,
   convertFromRaw,
+  convertToRaw,
   CompositeDecorator,
   SelectionState,
   RichUtils
@@ -27,6 +28,7 @@ import {
 } from './components/Buttons';
 
 import CompleteModal from './components/CompleteModal';
+import FailModal from './components/FailModal';
 import SubmitButton from './components/SubmitButton';
 import EssayTitle from './components/EssayTitle';
 
@@ -80,10 +82,28 @@ class App extends Component {
     this.state = {
       editorState: EditorState.createEmpty(decorator),
       modalIsOpen: false,
+      isFail: false,
       title: '',
+      countKeyDown: 0,
+      autoSaveTime: '',
     }
 
-    this.onChange = (editorState) => this.setState({ editorState });
+    this.onChange = (editorState) => {
+      let { countKeyDown } = this.state;
+      if (countKeyDown > 50) {
+        this.setState({
+          countKeyDown: 0
+        });
+        console.log("done!");
+        this.autoSave();
+      } else {
+        this.setState({
+          countKeyDown: countKeyDown +1
+        });
+      }
+      this.setState({ editorState });
+    }
+
     this.focus = () => this.editor.focus();
   }
 
@@ -102,14 +122,17 @@ class App extends Component {
         'Content-Type': 'application/multipart/form-data; charset=UTF-8'
       }
     })
-    .then((response) => {
-      const editorState = EditorState.createWithContent(convertFromRaw(response.data), decorator);
-      const title = response.title; // ''
+    .then(async (response) => {
+      let getContents = convertFromRaw(response.data);
+      const editorState = EditorState.createWithContent(await getContents, decorator);
+      const title = response.title;
 
       this.setState({
         title: title,
         editorState: editorState,
-      })
+      });
+
+      this.onChange(editorState, this.focus);
     })
     .catch((error) => {
       const editorState = EditorState.createEmpty(decorator);
@@ -118,7 +141,9 @@ class App extends Component {
       this.setState({
         title: title,
         editorState: editorState,
-      })
+      });
+
+      this.onChange(editorState, this.focus);
     });
   }
 
@@ -149,7 +174,7 @@ class App extends Component {
     const { editorState } = this.state;
     const content = editorState.getCurrentContent();
     const block = content.getBlockForKey(blockKey);
-    const entity = content.getEntity(entityKey);
+    const q = content.getEntity(entityKey);
     block.findEntityRanges((character) => {
       const eKey = character.getEntity();
       return eKey === entityKey;
@@ -206,29 +231,94 @@ class App extends Component {
     return ret;
   };
 
-  openModal = () => {
-    this.setState({ modalIsOpen: true });
+  openModal = (isFail) => {
+    this.setState({
+      isFail: isFail,
+      modalIsOpen: true
+    });
   }
 
   closeModal = () => {
     this.setState({ modalIsOpen: false });
   }
 
+  autoSave = () => {
+    let { editorState } = this.state;
+    const raw = JSON.stringify(convertToRaw(editorState.getCurrentContent()));
+    const essayId = document.getElementById("essayId").innerHTML;
+
+    axios({
+      method: 'post',
+      url: '/editor/save',
+      data: {
+          raw,
+          "essayId": essayId
+      },
+      xsrfCookieName: 'csrftoken',
+      xsrfHeaderName: 'X-CSRFToken',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'Content-Type': 'application/multipart/form-data; charset=UTF-8'
+      }
+    })
+    .then((response) => {
+      this.setState({
+        autoSaveTime: this.showAutoSaveTime()
+      });
+    })
+    .catch((error) => {
+      /* 자동저장 테스트용
+      this.setState({
+        autoSaveTime: this.showAutoSaveTime()
+      });
+      */
+    });
+  }
+
+  showAutoSaveTime = () => {
+    let date = new Date();
+    let hour = date.getHours();
+    let min = date.getMinutes();
+    let second = date.getSeconds();
+    if (hour < 10) {
+      hour = "0" + hour;
+    }
+    if (min < 10) {
+      min = "0" + min;
+    }
+    if (second < 10) {
+      second = "0" + second;
+    }
+    let hourTxt = hour.toString();
+    let minTxt = min.toString();
+    let secTxt = second.toString();
+    return hourTxt + ":" + minTxt + ":" + secTxt + " 에 자동저장되었습니다"
+  }
+
   render() {
-    const { editorState, modalIsOpen, title } = this.state
+    const { editorState, modalIsOpen, isFail, title, autoSaveTime } = this.state
     const isCursorMemo = this.isCursorBetweenMemo(editorState);
 
     return (
       <div className="wrap">
-        <CompleteModal
-          modalIsOpen={modalIsOpen}
-          closeModal={this.closeModal}
-        />
+        {
+          isFail
+          ?
+          <FailModal
+            modalIsOpen={modalIsOpen}
+            closeModal={this.closeModal}
+          />
+          :
+          <CompleteModal
+            modalIsOpen={modalIsOpen}
+            closeModal={this.closeModal}
+          />
+        }
         <div className="header">
           <div className="blank-side" />
           <div className="center">
-            <EssayTitle editorTitle={title} />
             <SubmitButton
+              autoSaveTime={autoSaveTime}
               editorState={editorState}
               openModal={this.openModal}
             />
@@ -239,46 +329,51 @@ class App extends Component {
           <div className="blank-side">
           </div>
           <div className="editor" onClick={this.focus}>
-            <Editor
-              customStyleMap={{
-                'COLOR': {
-                  color: '#8ACED0',
-                  background: 'none',
-                },
-                'SIZE_UP': {
-                  fontSize: '120%',
-                },
-                'SIZE_DOWN': {
-                  fontSize: '80%',
-                },
-              }}
-              editorState={editorState}
-              onChange={this.onChange}
-              placeholder="토핑 해주세요!"
-              plugins={plugins}
-              ref={(element) => { this.editor = element; }}
-            />
-            {/*<SideToolbar />*/}
-            <InlineToolbar
-              ref={(element) => { inlineToolbarElement = element; }}
-            />
-            {
-              isCursorMemo && (
-                <MemoEdit
-                  {...isCursorMemo}
-                  editorState={editorState}
-                  removeMemo={this.removeMemo}
-                  editMemo={this.editMemoAfterSelection}
-                />
-              )
-            }
-            <MemoAdd
-              ref={(element) => { memoAddElement = element; }}
-              editorState={editorState}
-              onChange={this.onChange}
-              inlineToolbarElement={inlineToolbarElement}
-              {...isCursorMemo}
-            />
+            <div className="editor_title">
+              <EssayTitle editorTitle={title} />
+            </div>
+            <div className="editor_content">
+              <Editor
+                customStyleMap={{
+                  'COLOR': {
+                    color: '#8ACED0',
+                    background: 'none',
+                  },
+                  'SIZE_UP': {
+                    fontSize: '120%',
+                  },
+                  'SIZE_DOWN': {
+                    fontSize: '80%',
+                  },
+                }}
+                editorState={editorState}
+                onChange={this.onChange}
+                placeholder="토핑 해주세요!"
+                plugins={plugins}
+                ref={(element) => { this.editor = element; }}
+              />
+              {/*<SideToolbar />*/}
+              <InlineToolbar
+                ref={(element) => { inlineToolbarElement = element; }}
+              />
+              {
+                isCursorMemo && (
+                  <MemoEdit
+                    {...isCursorMemo}
+                    editorState={editorState}
+                    removeMemo={this.removeMemo}
+                    editMemo={this.editMemoAfterSelection}
+                  />
+                )
+              }
+              <MemoAdd
+                ref={(element) => { memoAddElement = element; }}
+                editorState={editorState}
+                onChange={this.onChange}
+                inlineToolbarElement={inlineToolbarElement}
+                {...isCursorMemo}
+              />
+            </div>
           </div>
           <div className="memo-side">
             <MemoSideBar />

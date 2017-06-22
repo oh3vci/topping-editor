@@ -69,39 +69,36 @@ class EssayTitle extends React.Component {
       editorTitle = `${editorTitle.slice(0,40)}...`;
     }
     return (
-      <div className="essay-title">
+      <div className="wrapper-essay-title">
         {
           isChange
           ?
-          <div className="rename-subject">
+          <div className="rename-essay-title">
             <input
               maxLength="50"
               ref={(element) => { this.inputElement = element; }}
-              className="rename-text"
               type="text"
               onKeyDown={(e) => this.onKeyDown(e)}
               onChange={this.changeText}
               value={this.state.title}
             />
-            <div className="submit-rename-text">
-              <svg version="1.1" onClick={this.submit} xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24px" height="24px" viewBox="0 0 24 24" enableBackground="new 0 0 24 24">
-                <path d="M12,1.437C6.169,1.437,1.438,6.169,1.438,12c0,5.831,4.732,10.563,10.563,10.563
-                  c5.83,0,10.563-4.732,10.563-10.563C22.563,6.169,17.83,1.437,12,1.437z M18.363,7.31l-6.896,10.426
-                  c-0.161,0.246-0.431,0.398-0.718,0.424c-0.025,0-0.042,0-0.068,0c-0.27,0-0.524-0.111-0.701-0.313l-4.259-4.766
-                  c-0.347-0.389-0.313-0.99,0.076-1.336c0.389-0.346,0.988-0.313,1.335,0.076l3.439,3.862l6.219-9.405
-                  c0.287-0.439,0.871-0.558,1.311-0.271C18.531,6.288,18.65,6.871,18.363,7.31z"/>
-              </svg>
-              <svg version="1.1" onClick={this.changeForm} xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24px" height="24px" viewBox="0 0 24 24" enableBackground="new 0 0 24 24">
-                <path d="M11.999,1.438C6.166,1.438,1.438,6.167,1.438,12s4.729,10.562,10.562,10.562S22.563,17.834,22.563,12
-                	S17.832,1.438,11.999,1.438z M18.688,17.008l-1.683,1.682L12,13.684l-5.007,5.006l-1.683-1.682L10.318,12L5.312,6.994l1.682-1.683
-                	L12,10.318l5.008-5.006l1.682,1.682L13.683,12L18.688,17.008z"/>
-              </svg>
-            </div>
+            <svg version="1.1" onClick={this.submit} xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24px" height="24px" viewBox="0 0 24 24" enableBackground="new 0 0 24 24">
+              <path d="M12,1.437C6.169,1.437,1.438,6.169,1.438,12c0,5.831,4.732,10.563,10.563,10.563
+                c5.83,0,10.563-4.732,10.563-10.563C22.563,6.169,17.83,1.437,12,1.437z M18.363,7.31l-6.896,10.426
+                c-0.161,0.246-0.431,0.398-0.718,0.424c-0.025,0-0.042,0-0.068,0c-0.27,0-0.524-0.111-0.701-0.313l-4.259-4.766
+                c-0.347-0.389-0.313-0.99,0.076-1.336c0.389-0.346,0.988-0.313,1.335,0.076l3.439,3.862l6.219-9.405
+                c0.287-0.439,0.871-0.558,1.311-0.271C18.531,6.288,18.65,6.871,18.363,7.31z"/>
+            </svg>
+            <svg version="1.1" onClick={this.changeForm} xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24px" height="24px" viewBox="0 0 24 24" enableBackground="new 0 0 24 24">
+              <path d="M11.999,1.438C6.166,1.438,1.438,6.167,1.438,12s4.729,10.562,10.562,10.562S22.563,17.834,22.563,12
+              	S17.832,1.438,11.999,1.438z M18.688,17.008l-1.683,1.682L12,13.684l-5.007,5.006l-1.683-1.682L10.318,12L5.312,6.994l1.682-1.683
+              	L12,10.318l5.008-5.006l1.682,1.682L13.683,12L18.688,17.008z"/>
+            </svg>
           </div>
 
           :
-          <div className="default-subject">
-            <div className="subject-title">
+          <div className="default-essay-title">
+            <div className="essay-title">
               {
                 editorTitle === ''
                 ?

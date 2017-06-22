@@ -6,16 +6,20 @@
     "react-scripts": "0.9.3"
   },
   "dependencies": {
+    "axios": "^0.16.1",
     "decorate-component-with-props": "^1.0.2",
+    "draft-convert": "^1.4.6",
     "draft-js": "^0.10.0",
     "draft-js-buttons": "^2.0.0-beta6",
     "draft-js-inline-toolbar-plugin": "^2.0.0-beta6",
     "draft-js-plugins-editor": "^2.0.0-beta9",
     "draft-js-side-toolbar-plugin": "^2.0.0-beta6",
+    "linkify-it": "^2.0.3",
     "react": "^15.4.2",
+    "react-addons-create-fragment": "^15.5.4",
     "react-dom": "^15.4.2",
-    "semantic-ui-css": "^2.2.9",
-    "semantic-ui-react": "^0.67.0"
+    "react-draggable": "^2.2.6",
+    "tlds": "^1.183.0"
   },
   "scripts": {
     "start": "react-scripts start",

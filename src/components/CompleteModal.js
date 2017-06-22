@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 
 export default class CompleteModal extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     const { modalIsOpen, closeModal } = this.props;
@@ -20,7 +17,7 @@ export default class CompleteModal extends Component {
           </div>
           <div className="modal-contents">
             <div className="complete-icon">
-              <svg version="1.1" onClick={this.submit} xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24px" height="24px" viewBox="0 0 24 24" enableBackground="new 0 0 24 24">
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24px" height="24px" viewBox="0 0 24 24" enableBackground="new 0 0 24 24">
                 <path d="M12,1.437C6.169,1.437,1.438,6.169,1.438,12c0,5.831,4.732,10.563,10.563,10.563
                   c5.83,0,10.563-4.732,10.563-10.563C22.563,6.169,17.83,1.437,12,1.437z M18.363,7.31l-6.896,10.426
                   c-0.161,0.246-0.431,0.398-0.718,0.424c-0.025,0-0.042,0-0.068,0c-0.27,0-0.524-0.111-0.701-0.313l-4.259-4.766

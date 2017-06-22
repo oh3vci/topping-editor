@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+//import ReactDOM from 'react-dom';
 import modifier from './modifiers';
 import setKey from '../../utils/keyGenerator';
 import { getVisibleSelectionRect } from 'draft-js';

@@ -5,8 +5,8 @@ import { convertToRaw } from 'draft-js';
 
 class SubmitButton extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.submit = this.submit.bind(this);
   }
@@ -15,6 +15,7 @@ class SubmitButton extends React.Component {
     const { editorState, openModal } = this.props;
     const raw = JSON.stringify(convertToRaw(editorState.getCurrentContent()));
     const essayId = document.getElementById("essayId").innerHTML;
+    let isFail = false;
 
     axios({
       method: 'post',
@@ -31,20 +32,26 @@ class SubmitButton extends React.Component {
       }
     })
     .then((response) => {
-      openModal();
+      isFail = false;
+      openModal(isFail);
     })
     .catch((error) => {
-      alert("저장에 실패했습니다!");
+      isFail = true;
+      openModal(isFail);
     });
   }
 
-
   render() {
     return (
-      <div className="submit-button">
-        <button onClick={this.submit}>
-          저장하기
-        </button>
+      <div className="save-essay">
+        <div className="submit-button">
+          <button onClick={this.submit}>
+            저장하기
+          </button>
+        </div>
+        <div className="auto-save-time">
+          {this.props.autoSaveTime}
+        </div>
       </div>
     );
   }
