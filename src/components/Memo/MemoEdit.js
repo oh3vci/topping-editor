@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getVisibleSelectionRect } from 'draft-js';
-import Draggable from 'react-draggable'
+import Draggable from 'react-draggable';
 
 const toolbarHeight = 42;
 
@@ -88,6 +88,12 @@ export default class MemoEdit extends React.Component {
     this.props.editMemo(this.props.blockKey, this.props.entityKey);
   };
 
+  closeMemo = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    this.props.closeMemo();
+  }
+
 
   render() {
     let content = this.props.content;
@@ -101,6 +107,7 @@ export default class MemoEdit extends React.Component {
             this.toolbar = element;
           }}
         >
+          <div className="memo-close" onClick={this.closeMemo}>X</div>
           <div
             className="memo-content"
             title={this.props.content}

@@ -17,7 +17,7 @@ export default (editorState, content, memoKey) => {
     editorState.getSelection(),
     entityKey,
   );
-  
+
   return EditorState.forceSelection(
     newEditorState,
     editorState.getCurrentContent().getSelectionAfter()

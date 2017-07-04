@@ -75,10 +75,10 @@ export default class MemoAdd extends Component {
     }
   };
 */
-  openPopover = () => {
+  openPopover = (memoContent) => {
     if (!this.state.open) {
       this.preventNextClose = true;
-      let content = this.props.content;
+      let content = memoContent;
 
       let position;
 
