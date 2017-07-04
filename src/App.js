@@ -10,7 +10,7 @@ import {
 import Editor from 'draft-js-plugins-editor';
 import axios from 'axios';
 
-import createSideToolbarPlugin from './components/SideToolbar';
+//import createSideToolbarPlugin from './components/SideToolbar';
 import createInlineToolbarPlugin, { Separator } from './components/InlineToolbar';
 import createMemoPlugin from './components/Memo';
 import Memo from './components/Memo/Memo';
@@ -29,17 +29,21 @@ import {
 
 import CompleteModal from './components/CompleteModal';
 import FailModal from './components/FailModal';
+import ExitModal from './components/ExitModal';
+
 import SubmitButton from './components/SubmitButton';
+import ExitButton from './components/ExitButton';
+
 import EssayTitle from './components/EssayTitle';
 
 let memoAddElement = null;
 let inlineToolbarElement = null;
 
-const handleMemo = () => {
-  memoAddElement.openPopover();
+const handleMemo = (memoContent) => {
+  memoAddElement.openPopover(memoContent);
 };
 
-const sideToolbarPlugin = createSideToolbarPlugin();
+//const sideToolbarPlugin = createSideToolbarPlugin();
 const inlineToolbarPlugin = createInlineToolbarPlugin({
   structure: [
     FontSizeDownButton,
@@ -56,11 +60,11 @@ const inlineToolbarPlugin = createInlineToolbarPlugin({
 });
 const memoPlugin = createMemoPlugin();
 
-const { SideToolbar } = sideToolbarPlugin;
+//const { SideToolbar } = sideToolbarPlugin;
 const { InlineToolbar } = inlineToolbarPlugin;
 const { MemoAdd, MemoSideBar } = memoPlugin;
 const plugins = [
-  sideToolbarPlugin,
+  //sideToolbarPlugin,
   inlineToolbarPlugin,
   memoPlugin
 ];
@@ -83,9 +87,11 @@ class App extends Component {
       editorState: EditorState.createEmpty(decorator),
       modalIsOpen: false,
       isFail: false,
+      isExit: false,
       title: '',
       countKeyDown: 0,
       autoSaveTime: '',
+      closeMemo: false,
     }
 
     this.onChange = (editorState) => {
@@ -94,7 +100,6 @@ class App extends Component {
         this.setState({
           countKeyDown: 0
         });
-        console.log("done!");
         this.autoSave();
       } else {
         this.setState({
@@ -105,6 +110,7 @@ class App extends Component {
     }
 
     this.focus = () => this.editor.focus();
+    this.changeTitle = this.changeTitle.bind(this);
   }
 
 
@@ -123,18 +129,20 @@ class App extends Component {
       }
     })
     .then(async (response) => {
-      let getContents = convertFromRaw(response.data);
-      const editorState = EditorState.createWithContent(await getContents, decorator);
-      const title = response.title;
+
+      let dataReceived = await convertFromRaw(response.data.contents);
+      let title = await response.data.title;
+
+      const editorState = EditorState.createWithContent(dataReceived, decorator);
 
       this.setState({
         title: title,
         editorState: editorState,
       });
-
       this.onChange(editorState, this.focus);
     })
     .catch((error) => {
+
       const editorState = EditorState.createEmpty(decorator);
       const title = ''
 
@@ -144,6 +152,7 @@ class App extends Component {
       });
 
       this.onChange(editorState, this.focus);
+
     });
   }
 
@@ -171,10 +180,13 @@ class App extends Component {
     if (entityKey === null) {
       return;
     }
+
     const { editorState } = this.state;
     const content = editorState.getCurrentContent();
     const block = content.getBlockForKey(blockKey);
-    const q = content.getEntity(entityKey);
+
+    const memoContent = content.getEntity(entityKey).getData().content;
+
     block.findEntityRanges((character) => {
       const eKey = character.getEntity();
       return eKey === entityKey;
@@ -185,12 +197,28 @@ class App extends Component {
         anchorOffset: start,
         focusOffset: end,
       });
+
       const newEditorState = EditorState.forceSelection(editorState, selection);
       this.onChange(newEditorState);
       setTimeout(() => {
-        handleMemo();
+        handleMemo(memoContent);
       }, 0);
     });
+  };
+
+  showMemoAfterSelection = (blockKey, end) => {
+    const { editorState } = this.state;
+    const content = editorState.getCurrentContent();
+    const block = content.getBlockForKey(blockKey);
+
+    const selection = new SelectionState({
+      anchorKey: blockKey,
+      focusKey: blockKey,
+      anchorOffset: end,
+      focusOffset: end,
+    });
+    const newEditorState = EditorState.forceSelection(editorState, selection);
+    this.onChange(newEditorState);
   };
 
   getCurrentBlock = (editorState) => {
@@ -200,8 +228,10 @@ class App extends Component {
     return block;
   };
 
+
   isCursorBetweenMemo = (editorState) => {
     let ret = null;
+
     const selection = editorState.getSelection();
     const content = editorState.getCurrentContent();
     const currentBlock = this.getCurrentBlock(editorState);
@@ -211,6 +241,7 @@ class App extends Component {
     let entityKey = null;
     let blockKey = null;
     if (currentBlock.getType() !== 'atomic' && selection.isCollapsed()) {
+
       if (currentBlock.getLength() > 0) {
         if (selection.getAnchorOffset() > 0) {
           entityKey = currentBlock.getEntityAt(selection.getAnchorOffset() - 1);
@@ -239,11 +270,25 @@ class App extends Component {
   }
 
   closeModal = () => {
-    this.setState({ modalIsOpen: false });
+    this.setState({
+      modalIsOpen: false
+    });
+  }
+
+  openExitModal = () => {
+    this.setState({
+      isExit: true,
+    })
+  }
+
+  closeExitModal = () => {
+    this.setState({
+      isExit: false,
+    })
   }
 
   autoSave = () => {
-    let { editorState } = this.state;
+    let { editorState, title } = this.state;
     const raw = JSON.stringify(convertToRaw(editorState.getCurrentContent()));
     const essayId = document.getElementById("essayId").innerHTML;
 
@@ -251,8 +296,9 @@ class App extends Component {
       method: 'post',
       url: '/editor/save',
       data: {
-          raw,
-          "essayId": essayId
+          "essayId": essayId,
+          "title": title,
+          raw
       },
       xsrfCookieName: 'csrftoken',
       xsrfHeaderName: 'X-CSRFToken',
@@ -295,12 +341,37 @@ class App extends Component {
     return hourTxt + ":" + minTxt + ":" + secTxt + " 에 자동저장되었습니다"
   }
 
+  changeTitle = (text) => {
+    this.setState({
+      title: text
+    });
+  }
+
+  closeMemo = () => {
+    this.setState({
+      closeMemo: true
+    });
+  }
+
+  // 메모 닫았다가 다시 열 때 상태 변화 체크 함수
+  openMemo = () => {
+    if (this.state.closeMemo) {
+      this.setState({
+        closeMemo: false
+      });
+    }
+  }
+
   render() {
-    const { editorState, modalIsOpen, isFail, title, autoSaveTime } = this.state
-    const isCursorMemo = this.isCursorBetweenMemo(editorState);
+    const { editorState, modalIsOpen, isFail, isExit, title, autoSaveTime, closeMemo } = this.state;
+    let isCursorMemo = null;
+
+    if (!closeMemo) {
+      isCursorMemo = this.isCursorBetweenMemo(editorState);
+    }
 
     return (
-      <div className="wrap">
+      <div className="wrap" onClick={this.openMemo}>
         {
           isFail
           ?
@@ -314,13 +385,27 @@ class App extends Component {
             closeModal={this.closeModal}
           />
         }
+        {
+          isExit
+          ?
+          <ExitModal
+            closeModal={this.closeExitModal}
+          />
+          :
+          null
+        }
         <div className="header">
           <div className="blank-side" />
           <div className="center">
             <SubmitButton
+              title={title}
               autoSaveTime={autoSaveTime}
               editorState={editorState}
               openModal={this.openModal}
+              closeMemo={this.closeMemo}
+            />
+            <ExitButton
+              openModal={this.openExitModal}
             />
           </div>
           <div className="memo-side" />
@@ -328,9 +413,13 @@ class App extends Component {
         <div className="container">
           <div className="blank-side">
           </div>
-          <div className="editor" onClick={this.focus}>
+          <div className="editor">
             <div className="editor_title">
-              <EssayTitle editorTitle={title} />
+              <EssayTitle
+                editorTitle={title}
+                editorState={editorState}
+                changeTitle={this.changeTitle}
+              />
             </div>
             <div className="editor_content">
               <Editor
@@ -363,6 +452,7 @@ class App extends Component {
                     editorState={editorState}
                     removeMemo={this.removeMemo}
                     editMemo={this.editMemoAfterSelection}
+                    closeMemo={this.closeMemo}
                   />
                 )
               }
@@ -376,7 +466,11 @@ class App extends Component {
             </div>
           </div>
           <div className="memo-side">
-            <MemoSideBar />
+            <MemoSideBar
+              onChange={this.onChange}
+              editorState={editorState}
+              showMemoAfterSelection={this.showMemoAfterSelection}
+            />
           </div>
         </div>
       </div>
