@@ -23,9 +23,9 @@
 
 .active {
   background: rgba(0,0,0,0.8);
-  color: #8ACED0;
+  color: #17c6e2;
 }
 
 .active svg {
-  fill: #8ACED0;
+  fill: #17c6e2;
 }

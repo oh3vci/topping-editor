@@ -79,10 +79,14 @@ export default class MemoSideBar extends Component {
       this.props.showMemoAfterSelection(blockKey, end);
     } else if (typeof document.body.createTextRange !== "undefined") {
 
-      let textRange = document.body.createTextRange();
-      textRange.moveToElementText(memo);
-      textRange.collapse(false);
-      textRange.select();
+      let textRange = document.selection.createRange();
+      let preTextRange = document.body.createTextRange();
+      preTextRange.moveToElementText(memoLine);
+      preTextRange.setEndPoint("EndToEnd", textRange);
+
+      let end = preTextRange.text.length;
+
+      this.showMemoAfterSelection(blockKey, end);
     }
   }
 
@@ -110,7 +114,7 @@ export default class MemoSideBar extends Component {
                   >
                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
 	 width="35px" height="30px" viewBox="0 0 35 30" enableBackground="new 0 0 35 30">
-                      <path fill="#8CD0D3" d="M30.959,15c0,3.838-3.111,6.949-6.949,6.949H10.99c-3.838,0-6.949-3.111-6.949-6.949l0,0
+                      <path fill="#17c6e2" d="M30.959,15c0,3.838-3.111,6.949-6.949,6.949H10.99c-3.838,0-6.949-3.111-6.949-6.949l0,0
 	c0-3.838,3.111-6.949,6.949-6.949H24.01C27.848,8.051,30.959,11.162,30.959,15L30.959,15z"/>
                       <text transform="matrix(1 0 0 1 6.751 17.4336)" fill="#FFFFFF" fontFamily="'KoPubDotumBold'" fontSize="7">MEMO</text>
                     </svg>
@@ -120,7 +124,7 @@ export default class MemoSideBar extends Component {
 
 
                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20px" height="20px" viewBox="0 0 15 15" enableBackground="new 0 0 15 15">
-                      <polyline fill="#8ACED0" points="12.369,3.423 12.369,14.393 2.632,14.393 2.632,0.796 9.707,0.796 "/>
+                      <polyline fill="#17c6e2" points="12.369,3.423 12.369,14.393 2.632,14.393 2.632,0.796 9.707,0.796 "/>
                       <polyline fill="#73ACAE" points="12.369,3.423 9.707,3.423 9.707,0.796 "/>
                       <line fill="none" stroke="#FFFFFF" strokeWidth="0.3766" strokeMiterlimit="10" x1="4.185" y1="4.388" x2="10.775" y2="4.388"/>
                       <line fill="none" stroke="#FFFFFF" strokeWidth="0.3766" strokeMiterlimit="10" x1="4.185" y1="6.146" x2="10.775" y2="6.146"/>
@@ -146,13 +150,13 @@ export default class MemoSideBar extends Component {
                   >
                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
    width="35px" height="30px" viewBox="0 0 35 30" enableBackground="new 0 0 35 30">
-                      <path fill="#8CD0D3" d="M30.959,15c0,3.838-3.111,6.949-6.949,6.949H10.99c-3.838,0-6.949-3.111-6.949-6.949l0,0
+                      <path fill="#17c6e2" d="M30.959,15c0,3.838-3.111,6.949-6.949,6.949H10.99c-3.838,0-6.949-3.111-6.949-6.949l0,0
   c0-3.838,3.111-6.949,6.949-6.949H24.01C27.848,8.051,30.959,11.162,30.959,15L30.959,15z"/>
                       <text transform="matrix(1 0 0 1 6.751 17.4336)" fill="#FFFFFF" fontFamily="'KoPubDotumBold'" fontSize="7">MEMO</text>
                     </svg>
                     { /*
                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20px" height="20px" viewBox="0 0 15 15" enableBackground="new 0 0 15 15">
-                      <polyline fill="#8ACED0" points="12.369,3.423 12.369,14.393 2.632,14.393 2.632,0.796 9.707,0.796 "/>
+                      <polyline fill="#17c6e2" points="12.369,3.423 12.369,14.393 2.632,14.393 2.632,0.796 9.707,0.796 "/>
                       <polyline fill="#73ACAE" points="12.369,3.423 9.707,3.423 9.707,0.796 "/>
                       <line fill="none" stroke="#FFFFFF" strokeWidth="0.3766" strokeMiterlimit="10" x1="4.185" y1="4.388" x2="10.775" y2="4.388"/>
                       <line fill="none" stroke="#FFFFFF" strokeWidth="0.3766" strokeMiterlimit="10" x1="4.185" y1="6.146" x2="10.775" y2="6.146"/>

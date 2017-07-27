@@ -3,13 +3,6 @@ body {
   background: #F4F5F6;
 }
 
-/* 에디터 글자 크기 및 줄 간격 */
-.DraftEditor-editorContainer {
-  font-size: 16px;
-  color: #404040;
-  line-height: 26px;
-}
-
 .wrap {
   width: 100%;
 }
@@ -23,7 +16,6 @@ body {
 }
 
 .container {
-  padding-top: 20px;
   padding-bottom: 40px;
 }
 
@@ -44,28 +36,36 @@ body {
 .center, .editor {
   float: left;
   width: 100%;
-  background-color: #FFFFFF;
 }
 
 .center {
   text-align: center;
-  background-color: #faf8f6;
-
+  background-color: none;
 }
 
 .editor {
   padding: 12% 10%;
   cursor: text;
   border: 0.5px solid #A6A8AB;
-  box-shadow: 0px 0px 5px 1px rgba(110,110,110,0.3);
+  background-color: #fff;
+  /*box-shadow: 0px 0px 5px 1px rgba(110,110,110,0.3);*/
 }
 
 .editor_content {
-  padding: 14% 0;
+  padding-top: 80px;
 }
 
+/* 에디터 글자 크기 및 줄 간격 */
 .editor :global(.public-DraftEditor-content) {
   min-height: 1075px;
+  font-size: 16px;
+  color: #404040;
+  line-height: 26px;
+}
+
+.editor :global(.public-DraftEditorPlaceholder-root) {
+  font-size: 16px;
+  line-height: 26px;
 }
 
 
@@ -118,6 +118,7 @@ body {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  cursor: pointer;
 
   font-size: 26px;
   line-height: 26px;
@@ -138,6 +139,8 @@ body {
   font-weight: normal;
   color: #A6A8AB;
   width: 100%;
+  outline: none;
+
 
   border: none;
   border-top: 0px;
@@ -147,17 +150,8 @@ body {
   margin-right: 18px;
 }
 
-
-
 /***** submit-button *****/
 
-.save-essay {
-  position: relative;
-  float: right;
-  width: 30%;
-  height: 100%;
-  min-width: 250px;
-}
 
 .auto-save-time {
   display: block;
@@ -177,7 +171,7 @@ body {
 .submit-button button {
   box-sizing: border-box;
   border: solid transparent;
-  background: #8ACED0;
+  background: #17c6e2;
   color: #fff;
   margin-left: 12px;
   padding: 4px 15px;
@@ -214,13 +208,13 @@ body {
 .memo-exist svg:hover {
   position: absolute;
   cursor: pointer;
-  fill: #8ACED0;
+  fill: #17c6e2;
   top: 0;
 }
 
 
 memo {
-  border-bottom: 1px solid #8ACED0 !important;
+  border-bottom: 1px solid #17c6e2 !important;
 }
 
 
@@ -236,10 +230,10 @@ memo {
   right: 0;
   background-color: rgba(0,0,0,0.5);
   padding: 100px;
-  z-index: 999;
+  z-index: 10000;
 }
 
-.complete-modal, .fail-modal {
+.complete-modal, .fail-modal, .exit-modal {
   background-color: #fff;
   border-radius: 5px;
   max-width: 500px;
@@ -249,7 +243,7 @@ memo {
 }
 
 .modal-subtitle {
-  background-color: #8ACED0;
+  background-color: #17c6e2;
   color: #fff;
   padding: 8px 12px;
   border-radius: 5px 5px 0 0;
@@ -260,48 +254,48 @@ memo {
   text-align: center;
 }
 
-.complete-icon, .fail-icon {
+.complete-icon, .fail-icon, .exit-icon {
   padding-top: 40px;
 }
 
-.complete-icon svg, .fail-icon svg {
+.complete-icon svg, .fail-icon svg, .exit-icon svg {
   width: 50px;
   height: 50px;
 }
 
-.complete-icon svg {
-  fill: #8ACED0;
+.complete-icon svg, .exit-icon svg {
+  fill: #17c6e2;
 }
 
 .fail-icon svg {
   fill: #888;
 }
 
-.complete-inform, .fail-inform {
+.complete-inform, .fail-inform, .exit-inform {
   font-size: 18px;
   font-weight: bold;
   color: #888;
   padding: 20px 0;
 }
 
-.complete-inform-detail, .fail-inform-detail {
+.complete-inform-detail, .fail-inform-detail, .exit-inform-detail {
   font-size: 12px;
   color: #888;
 }
 
-.complete-link, .fail-inform-detail {
+.complete-link, .fail-inform-detail, .exit-inform-detail {
   padding-bottom: 20px;
 }
 
 .complete-link a {
-  color: #8ACED0;
+  color: #17c6e2;
   font-size: 12px;
   font-weight: bold;
   text-decoration: underline;
 }
 
 .modal-close {
-  padding-bottom: 40px;
+  padding: 20px 0;
 }
 
 .modal-close button {
@@ -310,7 +304,73 @@ memo {
   color: #fff;
   font-weight: bold;
   padding: 2px 20px;
-  background: #8ACED0;
+  background: #A6A8AB;
   border: none;
   margin: 0 auto;
+}
+
+.modal-close button:hover {
+  background: #17c6e2;
+}
+
+.exit-modal button {
+  display: inline-block;
+  width: 60px;
+  padding: 2px;
+  margin: 10px;
+  background: #A6A8AB;
+}
+
+
+
+
+/*** navtoolbar ***/
+.navtoolbar {
+  background: #17c6e2;
+  margin-bottom: -4px;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100%;
+  height: 50px;
+}
+
+.navtoolbar > div {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.fixed {
+  position: fixed;
+  width: 758px;
+  top: 55px;
+  z-index: 99999;
+}
+
+/***** exit-button *****/
+
+.exit-button {
+  display: block;
+  position: relative;
+  float: left;
+  height: 100%;
+}
+
+.auto-save-time, .save-button, .origin-button, .complete-button {
+  display: block;
+  position: relative;
+  float: right;
+  height: 100%;
+}
+
+.exit-button button {
+  box-sizing: border-box;
+  border: solid transparent;
+  background: #17c6e2;
+  color: #fff;
+  margin-left: 12px;
+  padding: 4px 15px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 14px;
+  min-width: 90px;
 }

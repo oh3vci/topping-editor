@@ -99,7 +99,9 @@ export default class MemoEdit extends React.Component {
     let content = this.props.content;
 
     return (
-      <Draggable>
+      <Draggable
+        defaultPosition={{x: 20, y: 20}}
+      >
         <div
           className="edit-memo"
           style={this.state.position}
@@ -107,7 +109,20 @@ export default class MemoEdit extends React.Component {
             this.toolbar = element;
           }}
         >
-          <div className="memo-close" onClick={this.closeMemo}>X</div>
+          <div className="memo-header">
+            <div className="memo-icon">
+            </div>
+            <div className="memo-title">
+              memo
+            </div>
+            <div className="memo-close" onClick={this.closeMemo}>
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="6px" height="6px" viewBox="0 0 357 357" enableBackground="new 0 0 357 357">
+              	<g>
+              		<polygon points="357,35.7 321.3,0 178.5,142.8 35.7,0 0,35.7 142.8,178.5 0,321.3 35.7,357 178.5,214.2 321.3,357 357,321.3 214.2,178.5"/>
+              	</g>
+              </svg>
+            </div>
+          </div>
           <div
             className="memo-content"
             title={this.props.content}

@@ -1,6 +1,6 @@
 //import decorateComponentWithProps from 'decorate-component-with-props';
 import Memo from './Memo';
-import MemoAdd from './MemoAdd';
+import MemoAdd2 from './MemoAdd2';
 import MemoSideBar from './MemoSideBar';
 import memoStrategy from './memoStrategy';
 
@@ -21,7 +21,7 @@ const memoPlugin = () => {
         component: Memo,
       },
     ],
-    MemoAdd,
+    MemoAdd2,
     MemoSideBar,
   };
 };

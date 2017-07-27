@@ -27,12 +27,11 @@ import {
   AddMemoButton,
 } from './components/Buttons';
 
+import Navbar from './components/Navbar';
+
 import CompleteModal from './components/CompleteModal';
 import FailModal from './components/FailModal';
 import ExitModal from './components/ExitModal';
-
-import SubmitButton from './components/SubmitButton';
-import ExitButton from './components/ExitButton';
 
 import EssayTitle from './components/EssayTitle';
 
@@ -62,7 +61,7 @@ const memoPlugin = createMemoPlugin();
 
 //const { SideToolbar } = sideToolbarPlugin;
 const { InlineToolbar } = inlineToolbarPlugin;
-const { MemoAdd, MemoSideBar } = memoPlugin;
+const { MemoAdd2, MemoSideBar } = memoPlugin;
 const plugins = [
   //sideToolbarPlugin,
   inlineToolbarPlugin,
@@ -131,6 +130,7 @@ class App extends Component {
     .then(async (response) => {
 
       let dataReceived = await convertFromRaw(response.data.contents);
+      console.log(response.data.contents);
       let title = await response.data.title;
 
       const editorState = EditorState.createWithContent(dataReceived, decorator);
@@ -209,7 +209,6 @@ class App extends Component {
   showMemoAfterSelection = (blockKey, end) => {
     const { editorState } = this.state;
     const content = editorState.getCurrentContent();
-    const block = content.getBlockForKey(blockKey);
 
     const selection = new SelectionState({
       anchorKey: blockKey,
@@ -397,6 +396,19 @@ class App extends Component {
         <div className="header">
           <div className="blank-side" />
           <div className="center">
+            <Navbar
+              title={title}
+              autoSaveTime={autoSaveTime}
+              editorState={editorState}
+              openExitModal={this.openExitModal}
+              openModal={this.openModal}
+              closeMemo={this.closeMemo}
+            />
+            {/*
+            <OriginButton />
+            <ExitButton
+              openModal={this.openExitModal}
+            />
             <SubmitButton
               title={title}
               autoSaveTime={autoSaveTime}
@@ -404,9 +416,7 @@ class App extends Component {
               openModal={this.openModal}
               closeMemo={this.closeMemo}
             />
-            <ExitButton
-              openModal={this.openExitModal}
-            />
+            */}
           </div>
           <div className="memo-side" />
         </div>
@@ -425,7 +435,7 @@ class App extends Component {
               <Editor
                 customStyleMap={{
                   'COLOR': {
-                    color: '#8ACED0',
+                    color: '#17c6e2',
                     background: 'none',
                   },
                   'SIZE_UP': {
@@ -456,7 +466,18 @@ class App extends Component {
                   />
                 )
               }
+              {
+              /*
               <MemoAdd
+                ref={(element) => { memoAddElement = element; }}
+                editorState={editorState}
+                onChange={this.onChange}
+                inlineToolbarElement={inlineToolbarElement}
+                {...isCursorMemo}
+              />
+              */
+              }
+              <MemoAdd2
                 ref={(element) => { memoAddElement = element; }}
                 editorState={editorState}
                 onChange={this.onChange}

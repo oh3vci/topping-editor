@@ -2,9 +2,18 @@ import React from 'react';
 
 class EssayTitle extends React.Component {
 
-  state = {
-    isChange: false,
-    title: this.props.editorTitle,
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isChange: false,
+      title: this.props.editorTitle,
+    }
+
+    this.changeTitle = this.changeTitle.bind(this);
+    this.changeText = this.changeText.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
+    this.changeForm = this.changeForm.bind(this);
   }
 
   changeTitle = (evt) => {

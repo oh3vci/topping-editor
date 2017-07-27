@@ -12,7 +12,8 @@ class SubmitButton extends React.Component {
   }
 
   submit = () => {
-    const { editorState, openModal } = this.props;
+    const { editorState, openModal, title, closeMemo } = this.props;
+    closeMemo();
     const raw = JSON.stringify(convertToRaw(editorState.getCurrentContent()));
     const essayId = document.getElementById("essayId").innerHTML;
     let isFail = false;
@@ -21,8 +22,9 @@ class SubmitButton extends React.Component {
       method: 'post',
       url: '/editor/save',
       data: {
-          raw,
-          "essayId": essayId
+        "essayId": essayId,
+        "title": title,
+        raw
       },
       xsrfCookieName: 'csrftoken',
       xsrfHeaderName: 'X-CSRFToken',

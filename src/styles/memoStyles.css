@@ -17,7 +17,7 @@
   background: #FFF;
   display: inline-block;
 }
-
+/*
 .addMemoPopover {
   background: rgba(10,10,10,0.8);
   position: absolute;
@@ -48,11 +48,12 @@
   border-width: 6px;
   margin-left: -6px;
 }
-
+*/
 
 .addMemoClosedPopover {
   display: none;
 }
+
 
 .addMemoButton {
   box-sizing: border-box;
@@ -98,7 +99,7 @@
   pointer-events: none;
   background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
 }
-
+/*
 .addMemoInput {
   box-sizing: border-box;
   border-radius: 2px;
@@ -112,16 +113,52 @@
   font-size: .9em;
   font-weight: 100;
 }
+*/
+.addMemoInput {
+  width: 180px;
+  height: 170px;
+  margin-top: 5px;
+  padding-left: 10px;
+  padding-right: 5px;
+  margin-right: 5px;
+  overflow-y: auto;
+
+  resize: none;
+  outline: none;
+  border: none;
+}
+
+
+.addMemoInput::-webkit-scrollbar {
+  width: 4px;
+}
+
+.addMemoInput::-webkit-scrollbar-button {
+  width: 4px;
+  height:4px;
+  cursor: pointer;
+}
+
+.addMemoInput::-webkit-scrollbar-track {
+  border-radius:20px;
+}
+.addMemoInput::-webkit-scrollbar-thumb {
+  background-clip: padding-box;
+  background: #A6A8AB;
+  border: thin solid #A6A8AB;
+  border-radius: 20px;
+}
+.addMemoInput::-webkit-scrollbar-thumb:hover {
+  background: #A6A8AB;
+  border: thin solid #A6A8AB;
+  cursor: pointer;
+}
+
 
 .addMemoInput:focus {
   outline: none !important;
 }
 
-.addMemoInputError {
-  color: darkred;
-  border: 1px solid darkred;
-  box-shadow: none;
-}
 
 .addMemoCloseButton {
   position: absolute;
@@ -137,7 +174,7 @@
 }
 
 .addMemoCloseButton:hover {
-  color: #8ACED0;
+  color: #17c6e2;
 }
 
 .addMemoError {
@@ -154,29 +191,41 @@
 
 .edit-memo {
   background: #FFF;
-  border: 1px solid #8ACED0;
+  border: 1px solid #17c6e2;
   font-size: .8em;
   position: absolute;
-  border-radius: 2px;
   z-index: 1000;
   box-shadow: 3px 3px rgba(10,10,10,0.3);
   cursor: pointer;
 }
 
-.memo-close {
-  position: fixed;
-  right: 5px;
-  top: 3px;
+/*****memo-header*****/
+.memo-header {
+  background-color: #17c6e2;
+  width: 100%;
+  padding-bottom: 4px;
 }
 
-.memo-close:hover {
-  color: #8ACED0;
+.memo-title {
+  color: #fff;
+  text-align: center;
 }
+
+.memo-close {
+  position: fixed;
+  right: 6px;
+  top: 0px;
+}
+
+.memo-close svg {
+  fill: #fff;
+}
+
 
 .memo-content {
   width: 180px;
   height: 170px;
-  margin-top: 20px;
+  margin-top: 5px;
   padding-left: 10px;
   padding-right: 5px;
   margin-right: 5px;
@@ -185,12 +234,12 @@
 
 
 .memo-content::-webkit-scrollbar {
-  width: 5px;
+  width: 4px;
 }
 
 .memo-content::-webkit-scrollbar-button {
-  width: 5px;
-  height:5px;
+  width: 4px;
+  height:4px;
   cursor: pointer;
 }
 
@@ -199,13 +248,13 @@
 }
 .memo-content::-webkit-scrollbar-thumb {
   background-clip: padding-box;
-  background: #8ACED0;
-  border: thin solid #8ACED0;
+  background: #A6A8AB;
+  border: thin solid #A6A8AB;
   border-radius: 20px;
 }
 .memo-content::-webkit-scrollbar-thumb:hover {
-  background: #8ACED0;
-  border: thin solid #8ACED0;
+  background: #A6A8AB;
+  border: thin solid #A6A8AB;
   cursor: pointer;
 }
 
@@ -220,17 +269,17 @@
 }
 
 .memo-button button {
-  width: 50%;
-  background: none;
+  background-color: #A6A8AB;
   border: none;
-  float: right;
   display: inline-block;
-  padding: 0 5px;
-  margin: 5px 0;
+  padding: 0 6px;
+  margin: 10px 4px;
+  border-radius: 5px;
+  color: #fff;
   cursor: pointer;
 }
 
 .memo-button button:hover {
-  color: #8ACED0;
+  background-color: #17c6e2;
   font-weight: bold;
 }

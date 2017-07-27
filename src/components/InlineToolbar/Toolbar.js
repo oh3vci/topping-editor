@@ -41,7 +41,9 @@ export default class Toolbar extends React.Component {
         const relativeRect = relativeParent ? relativeParent.getBoundingClientRect() : document.body.getBoundingClientRect();
         const selectionRect = getVisibleSelectionRect(window);
         position = {
-          top: (selectionRect.top - relativeRect.top) - toolbarHeight,
+          // padding 크기 만큼 더해준다.
+          //top: (selectionRect.top - relativeRect.top) - toolbarHeight,
+          top: (selectionRect.top - relativeRect.top) + (toolbarHeight / 3),
           left: (selectionRect.left - relativeRect.left) + (selectionRect.width / 2),
           transform: 'translate(-50%) scale(1)',
           transition: 'transform 0.15s cubic-bezier(.3,1.2,.2,1)',
