@@ -126,7 +126,7 @@ body {
   color: #A6A8AB;
   margin-right: 5px;
   padding-bottom: 5px;
-  border-bottom: 1px solid #A6A8AB;
+  border-bottom: 0.5px solid #A6A8AB;
 }
 
 
@@ -343,7 +343,59 @@ memo {
   position: fixed;
   width: 758px;
   top: 55px;
-  z-index: 99999;
+  z-index: 9999;
+}
+
+[data-button-tooltip] {
+  position: relative;
+  overflow: visible;
+}
+
+[data-button-tooltip]:before {
+  display: none;
+  position: absolute;
+  width: 0;
+  top: 95%;
+  left: 50%;
+  margin-left: -.4375em;
+  border: solid transparent;
+  border-width: 0 .4375em .425em;
+  border-bottom-color: rgba(10,10,10,0.8);
+  content: "";
+  z-index: 99;
+}
+
+[data-button-tooltip]:after {
+	display: none;
+
+	/* type & style */
+	font: normal 1em/1 sans-serif;
+	white-space: nowrap;
+	text-shadow: none;
+	color: #fff;
+  background: rgba(10,10,10,0.8);
+	border-radius: .25em;
+
+	/* position & size */
+	position: absolute;
+	z-index: 99;
+	padding: .375em .5em;
+  top: 90%;
+  left: 50%;
+  margin-top: .6em;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  transform: translateX(-50%);
+  content: attr(data-button-tooltip);
+
+}
+
+
+[data-button-tooltip]:hover:before,
+[data-button-tooltip]:hover:after {
+	display: inline-block;
 }
 
 /***** exit-button *****/

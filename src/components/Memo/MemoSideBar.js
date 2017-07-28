@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import FaNote from 'react-icons/lib/fa/sticky-note';
 
 export default class MemoSideBar extends Component {
 
@@ -112,27 +111,10 @@ export default class MemoSideBar extends Component {
                     style={{top: memo.top, left: left}}
                     onClick={() => this.showMemo(memo.key)}
                   >
-                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-	 width="35px" height="30px" viewBox="0 0 35 30" enableBackground="new 0 0 35 30">
-                      <path fill="#17c6e2" d="M30.959,15c0,3.838-3.111,6.949-6.949,6.949H10.99c-3.838,0-6.949-3.111-6.949-6.949l0,0
-	c0-3.838,3.111-6.949,6.949-6.949H24.01C27.848,8.051,30.959,11.162,30.959,15L30.959,15z"/>
-                      <text transform="matrix(1 0 0 1 6.751 17.4336)" fill="#FFFFFF" fontFamily="'KoPubDotumBold'" fontSize="7">MEMO</text>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="30" viewBox="0 0 35 30">
+                      <path fill="#17c6e2" d="M30.959 15a6.949 6.949 0 0 1-6.949 6.949H10.99a6.949 6.949 0 1 1 0-13.898h13.02A6.949 6.949 0 0 1 30.959 15z"/>
+                      <text transform="translate(6.751 17.434)" fill="#FFF" fontSize="7">MEMO</text>
                     </svg>
-
-                    {/*
-                    <FaNote />
-
-
-                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20px" height="20px" viewBox="0 0 15 15" enableBackground="new 0 0 15 15">
-                      <polyline fill="#17c6e2" points="12.369,3.423 12.369,14.393 2.632,14.393 2.632,0.796 9.707,0.796 "/>
-                      <polyline fill="#73ACAE" points="12.369,3.423 9.707,3.423 9.707,0.796 "/>
-                      <line fill="none" stroke="#FFFFFF" strokeWidth="0.3766" strokeMiterlimit="10" x1="4.185" y1="4.388" x2="10.775" y2="4.388"/>
-                      <line fill="none" stroke="#FFFFFF" strokeWidth="0.3766" strokeMiterlimit="10" x1="4.185" y1="6.146" x2="10.775" y2="6.146"/>
-                      <line fill="none" stroke="#FFFFFF" strokeWidth="0.3766" strokeMiterlimit="10" x1="4.185" y1="7.972" x2="10.775" y2="7.972"/>
-                      <line fill="none" stroke="#FFFFFF" strokeWidth="0.3766" strokeMiterlimit="10" x1="4.185" y1="9.729" x2="10.775" y2="9.729"/>
-                      <line fill="none" stroke="#FFFFFF" strokeWidth="0.3766" strokeMiterlimit="10" x1="4.185" y1="11.607" x2="10.775" y2="11.607"/>
-                    </svg>
-                    */}
                   </div>
                 )
               } else {
@@ -148,23 +130,10 @@ export default class MemoSideBar extends Component {
                     style={{top: memo.top, left: left}}
                     onClick={() => this.showMemo(memo.key)}
                   >
-                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-   width="35px" height="30px" viewBox="0 0 35 30" enableBackground="new 0 0 35 30">
-                      <path fill="#17c6e2" d="M30.959,15c0,3.838-3.111,6.949-6.949,6.949H10.99c-3.838,0-6.949-3.111-6.949-6.949l0,0
-  c0-3.838,3.111-6.949,6.949-6.949H24.01C27.848,8.051,30.959,11.162,30.959,15L30.959,15z"/>
-                      <text transform="matrix(1 0 0 1 6.751 17.4336)" fill="#FFFFFF" fontFamily="'KoPubDotumBold'" fontSize="7">MEMO</text>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="30" viewBox="0 0 35 30">
+                      <path fill="#17c6e2" d="M30.959 15a6.949 6.949 0 0 1-6.949 6.949H10.99a6.949 6.949 0 1 1 0-13.898h13.02A6.949 6.949 0 0 1 30.959 15z"/>
+                      <text transform="translate(6.751 17.434)" fill="#FFF" fontSize="7">MEMO</text>
                     </svg>
-                    { /*
-                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20px" height="20px" viewBox="0 0 15 15" enableBackground="new 0 0 15 15">
-                      <polyline fill="#17c6e2" points="12.369,3.423 12.369,14.393 2.632,14.393 2.632,0.796 9.707,0.796 "/>
-                      <polyline fill="#73ACAE" points="12.369,3.423 9.707,3.423 9.707,0.796 "/>
-                      <line fill="none" stroke="#FFFFFF" strokeWidth="0.3766" strokeMiterlimit="10" x1="4.185" y1="4.388" x2="10.775" y2="4.388"/>
-                      <line fill="none" stroke="#FFFFFF" strokeWidth="0.3766" strokeMiterlimit="10" x1="4.185" y1="6.146" x2="10.775" y2="6.146"/>
-                      <line fill="none" stroke="#FFFFFF" strokeWidth="0.3766" strokeMiterlimit="10" x1="4.185" y1="7.972" x2="10.775" y2="7.972"/>
-                      <line fill="none" stroke="#FFFFFF" strokeWidth="0.3766" strokeMiterlimit="10" x1="4.185" y1="9.729" x2="10.775" y2="9.729"/>
-                      <line fill="none" stroke="#FFFFFF" strokeWidth="0.3766" strokeMiterlimit="10" x1="4.185" y1="11.607" x2="10.775" y2="11.607"/>
-                    </svg>
-                    */}
                   </div>
                 )
               }

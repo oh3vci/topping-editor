@@ -125,13 +125,11 @@ export default class MemoAdd2 extends Component {
             <div className="memo-icon">
             </div>
             <div className="memo-title">
-              memo
+              MEMO
             </div>
-            <div className="memo-close" onClick={this.closePopover}>
-              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="6px" height="6px" viewBox="0 0 357 357" enableBackground="new 0 0 357 357">
-              	<g>
-              		<polygon points="357,35.7 321.3,0 178.5,142.8 35.7,0 0,35.7 142.8,178.5 0,321.3 35.7,357 178.5,214.2 321.3,357 357,321.3 214.2,178.5"/>
-              	</g>
+            <div className="memo-close" onClick={this.closePopover}>      
+              <svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" viewBox="0 0 357 357">
+                <path d="M357 35.7L321.3 0 178.5 142.8 35.7 0 0 35.7l142.8 142.8L0 321.3 35.7 357l142.8-142.8L321.3 357l35.7-35.7-142.8-142.8z"/>
               </svg>
             </div>
           </div>

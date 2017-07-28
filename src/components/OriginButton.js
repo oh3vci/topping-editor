@@ -1,22 +1,45 @@
 import React from 'react';
+import axios from 'axios';
 
 export default class OriginButton extends React.Component {
 
+  constructor(props) {
+    super(props);
+
+    this.showOrigin = this.showOrigin.bind(this);
+  }
+
+  showOrigin = () => {
+    const essayId = document.getElementById("essayId").innerHTML;
+
+    axios({
+      method: 'post',
+      url: '/editor/origin',
+      data: {
+        "essayId": essayId
+      },
+      xsrfCookieName: 'csrftoken',
+      xsrfHeaderName: 'X-CSRFToken',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'Content-Type': 'application/multipart/form-data; charset=UTF-8'
+      }
+    })
+    .then((response) => {
+
+    })
+    .catch((error) => {
+
+    });
+  }
+
   render() {
     return (
-      <div className="origin-button">
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50px" height="50px" viewBox="0 0 50 50" enableBackground="new 0 0 50 50">
-          <g>
-            <polygon fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" points="14.859,12.916 29.382,12.916 35.487,19.495 35.487,39.354 14.859,39.354 "/>
-            <polyline fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" points="29.382,12.916 29.382,19.495 35.487,19.495"/>
-            <line fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" x1="19.038" y1="26.787" x2="31.16" y2="26.787"/>
-            <line fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" x1="19.038" y1="30.343" x2="31.16" y2="30.343"/>
-            <line fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" x1="19.038" y1="33.812" x2="31.16" y2="33.812"/>
-            <path fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" d="M25.255,12.917"/>
-            <path fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" d="M25.255,12.917"/>
-            <path fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" d="M25.255,12.917c0.011-0.105,0.018-0.214,0.018-0.322c0-1.623-1.316-2.938-2.939-2.938s-2.939,1.315-2.939,2.938v8.146h0.002
-            c0,0.014-0.002,0.024-0.002,0.038c0,1.088,0.89,1.971,1.986,1.971s1.985-0.883,1.985-1.971c0-0.014-0.001-0.024-0.001-0.038h0.001
-            v-5.397"/>
+      <div className="origin-button" data-button-tooltip="원본보기" onclick={this.showOrigin}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+          <g fill="none" stroke="#FFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10">
+            <path d="M14.859 12.916h14.523l6.105 6.579v19.859H14.859z"/>
+            <path d="M29.382 12.916v6.579h6.105M19.038 26.787H31.16M19.038 30.343H31.16M19.038 33.812H31.16M25.255 12.917a2.938 2.938 0 1 0-5.86-.322v8.146h.002l-.002.038c0 1.088.89 1.971 1.986 1.971s1.985-.883 1.985-1.971l-.001-.038h.001v-5.397"/>
           </g>
         </svg>
       </div>
