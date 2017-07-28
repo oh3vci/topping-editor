@@ -1,19 +1,45 @@
-import React, { Component } from 'react';
+import React from 'react';
+import axios from 'axios';
 
-export default class CompleteModal extends Component {
+export default class CompleteModal extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.complete = this.complete.bind(this);
+  }
+
+  complete = () => {
+    const essayId = document.getElementById("essayId").innerHTML;
+
+    axios({
+      method: 'post',
+      url: '/editor/complete',
+      data: {
+        "essayId": essayId
+      },
+      xsrfCookieName: 'csrftoken',
+      xsrfHeaderName: 'X-CSRFToken',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'Content-Type': 'application/multipart/form-data; charset=UTF-8'
+      }
+    })
+    .then((response) => {
+
+    })
+    .catch((error) => {
+
+    });
+  }
 
   render() {
-    const { modalIsOpen, closeModal } = this.props;
-
-    if(!modalIsOpen) {
-      return null;
-    }
+    const { closeModal } = this.props;
 
     return (
       <div className="backdrop-modal">
         <div className="complete-modal">
           <div className="modal-subtitle">
-            저장하기
+            첨삭완료
           </div>
           <div className="modal-contents">
             <div className="complete-icon">
@@ -26,16 +52,17 @@ export default class CompleteModal extends Component {
               </svg>
             </div>
             <div className="complete-inform">
-              저장되었습니다
+              첨삭을 완료 하시겠습니까?
             </div>
             <div className="complete-inform-detail">
-              저장된 글은 마이페이지 > 작업중인 문서에서 확인 가능합니다</div>
-            <div className="complete-link">
-              <a href="https://www.topp-ing.com/mypage2">바로가기</a>
+              한 번 첨삭완료를 하시면 더 이상 수정하실 수 없습니다!
             </div>
             <div className="modal-close">
+              <button onClick={this.complete}>
+                예
+              </button>
               <button onClick={closeModal}>
-                확인
+                아니요
               </button>
             </div>
           </div>

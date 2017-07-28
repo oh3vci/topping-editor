@@ -12,7 +12,7 @@ export default class SaveButton extends React.Component {
   }
 
   submit = () => {
-    const { editorState, openModal, title, closeMemo } = this.props;
+    const { editorState, openSaveModal, title, closeMemo } = this.props;
     closeMemo();
     const raw = JSON.stringify(convertToRaw(editorState.getCurrentContent()));
     const essayId = document.getElementById("essayId").innerHTML;
@@ -35,11 +35,11 @@ export default class SaveButton extends React.Component {
     })
     .then((response) => {
       isFail = false;
-      openModal(isFail);
+      openSaveModal(isFail);
     })
     .catch((error) => {
       isFail = true;
-      openModal(isFail);
+      openSaveModal(isFail);
     });
   }
 

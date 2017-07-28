@@ -29,9 +29,10 @@ import {
 
 import Navbar from './components/Navbar';
 
-import CompleteModal from './components/CompleteModal';
-import FailModal from './components/FailModal';
 import ExitModal from './components/ExitModal';
+import SaveModal from './components/SaveModal';
+import FailModal from './components/FailModal';
+import CompleteModal from './components/CompleteModal';
 
 import EssayTitle from './components/EssayTitle';
 
@@ -87,6 +88,7 @@ class App extends Component {
       modalIsOpen: false,
       isFail: false,
       isExit: false,
+      isComplete: false,
       title: '',
       countKeyDown: 0,
       autoSaveTime: '',
@@ -261,7 +263,7 @@ class App extends Component {
     return ret;
   };
 
-  openModal = (isFail) => {
+  openSaveModal = (isFail) => {
     this.setState({
       isFail: isFail,
       modalIsOpen: true
@@ -283,6 +285,18 @@ class App extends Component {
   closeExitModal = () => {
     this.setState({
       isExit: false,
+    })
+  }
+
+  openCompleteModal = () => {
+    this.setState({
+      isComplete: true
+    })
+  }
+
+  closeCompleteModal = () => {
+    this.setState({
+      isComplete: false
     })
   }
 
@@ -362,7 +376,7 @@ class App extends Component {
   }
 
   render() {
-    const { editorState, modalIsOpen, isFail, isExit, title, autoSaveTime, closeMemo } = this.state;
+    const { editorState, modalIsOpen, isFail, isExit, isComplete, title, autoSaveTime, closeMemo } = this.state;
     let isCursorMemo = null;
 
     if (!closeMemo) {
@@ -379,7 +393,7 @@ class App extends Component {
             closeModal={this.closeModal}
           />
           :
-          <CompleteModal
+          <SaveModal
             modalIsOpen={modalIsOpen}
             closeModal={this.closeModal}
           />
@@ -393,6 +407,15 @@ class App extends Component {
           :
           null
         }
+        {
+          isComplete
+          ?
+          <CompleteModal
+            closeModal={this.closeCompleteModal}
+          />
+          :
+          null
+        }
         <div className="header">
           <div className="blank-side" />
           <div className="center">
@@ -401,22 +424,10 @@ class App extends Component {
               autoSaveTime={autoSaveTime}
               editorState={editorState}
               openExitModal={this.openExitModal}
-              openModal={this.openModal}
+              openCompleteModal={this.openCompleteModal}
+              openSaveModal={this.openSaveModal}
               closeMemo={this.closeMemo}
             />
-            {/*
-            <OriginButton />
-            <ExitButton
-              openModal={this.openExitModal}
-            />
-            <SubmitButton
-              title={title}
-              autoSaveTime={autoSaveTime}
-              editorState={editorState}
-              openModal={this.openModal}
-              closeMemo={this.closeMemo}
-            />
-            */}
           </div>
           <div className="memo-side" />
         </div>
