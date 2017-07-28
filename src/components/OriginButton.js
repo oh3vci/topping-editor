@@ -35,7 +35,7 @@ export default class OriginButton extends React.Component {
 
   render() {
     return (
-      <div className="origin-button" data-button-tooltip="원본보기" onclick={this.showOrigin}>
+      <div className="origin-button" data-button-tooltip="원본보기" onClick={this.showOrigin}>
         <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
           <g fill="none" stroke="#FFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10">
             <path d="M14.859 12.916h14.523l6.105 6.579v19.859H14.859z"/>
