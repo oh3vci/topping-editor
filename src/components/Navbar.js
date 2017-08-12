@@ -29,7 +29,7 @@ export default class Navbar extends React.Component {
 
 
   render() {
-    const { openExitModal, openSaveModal, openCompleteModal, title, autoSaveTime, editorState, closeMemo } = this.props;
+    const { openExitModal, openSaveModal, openCompleteModal, title, autoSaveTime, editorState, closeMemo, originEssayId } = this.props;
     const classes = 'navtoolbar' + (this.state.active ? ' fixed' : '');
 
     return (
@@ -39,10 +39,23 @@ export default class Navbar extends React.Component {
         <ExitButton
           openExitModal={openExitModal}
         />
-        <CompleteButton
-          openCompleteModal={openCompleteModal}
-        />
-        <OriginButton />
+        {
+          originEssayId !== "-1"
+          ?
+          <CompleteButton
+            openCompleteModal={openCompleteModal}
+          />
+          :
+          null
+        }
+        {
+          originEssayId !== "-1"
+          ?
+          <OriginButton />
+          :
+          null
+        }
+
         <SaveButton
           title={title}
           editorState={editorState}

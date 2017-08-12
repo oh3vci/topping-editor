@@ -6,31 +6,41 @@ export default class OriginButton extends React.Component {
   constructor(props) {
     super(props);
 
+    this.getCookie = this.getCookie.bind(this);
     this.showOrigin = this.showOrigin.bind(this);
   }
 
+  getCookie = (name) => {
+    let v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+    return v ? v[2] : null;
+  }
+
   showOrigin = () => {
-    const essayId = document.getElementById("essayId").innerHTML;
+    const originEssayId = document.getElementById("originEssayId").innerHTML;
+    let csrftoken = this.getCookie("csrftoken");
 
-    axios({
-      method: 'post',
-      url: '/editor/origin',
-      data: {
-        "essayId": essayId
-      },
-      xsrfCookieName: 'csrftoken',
-      xsrfHeaderName: 'X-CSRFToken',
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest',
-        'Content-Type': 'application/multipart/form-data; charset=UTF-8'
-      }
-    })
-    .then((response) => {
+    let form = document.createElement("form");
+    form.target = "_blank";
+    form.method = "POST";
+    form.action = "/reader";
+    form.style.display = "none";
 
-    })
-    .catch((error) => {
+    let input1 = document.createElement("input");
+    input1.type = "hidden";
+    input1.name = "csrfmiddlewaretoken";
+    input1.value = csrftoken;
 
-    });
+    let input2 = document.createElement("input");
+    input2.type = "hidden";
+    input2.name = "essayId";
+    input2.value = originEssayId;
+
+    form.appendChild(input1);
+    form.appendChild(input2);
+
+    document.body.appendChild(form);
+
+    form.submit();
   }
 
   render() {

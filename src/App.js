@@ -70,6 +70,7 @@ const plugins = [
 ];
 
 const essayId = document.getElementById("essayId").innerHTML;
+const originEssayId = document.getElementById("originEssayId").innerHTML;
 const decorator = new CompositeDecorator([
   {
     strategy: memoStrategy,
@@ -146,7 +147,7 @@ class App extends Component {
     .catch((error) => {
 
       const editorState = EditorState.createEmpty(decorator);
-      const title = ''
+      const title = '';
 
       this.setState({
         title: title,
@@ -412,6 +413,8 @@ class App extends Component {
           ?
           <CompleteModal
             closeModal={this.closeCompleteModal}
+            editorState={editorState}
+            title={title}
           />
           :
           null
@@ -420,6 +423,7 @@ class App extends Component {
           <div className="blank-side" />
           <div className="center">
             <Navbar
+              originEssayId={originEssayId}
               title={title}
               autoSaveTime={autoSaveTime}
               editorState={editorState}

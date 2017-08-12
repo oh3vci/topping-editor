@@ -63,7 +63,7 @@ export default class MemoAdd2 extends Component {
       const relativeRect = relativeParent ? relativeParent.getBoundingClientRect() : document.body.getBoundingClientRect();
       const selectionRect = getVisibleSelectionRect(window);
       position = {
-        top: (selectionRect.top - relativeRect.top) - toolbarHeight,
+        top: (selectionRect.top - relativeRect.top) + toolbarHeight / 2,
         left: (selectionRect.left - relativeRect.left) + (selectionRect.width / 2),
         transform: 'translate(-50%) scale(1)',
         transition: 'transform 0.15s cubic-bezier(.3,1.2,.2,1)',
@@ -119,7 +119,6 @@ export default class MemoAdd2 extends Component {
           ref={(element) => {
             this.toolbar = element;
           }}
-          style={position}
         >
           <div className="memo-header">
             <div className="memo-icon">
@@ -127,7 +126,7 @@ export default class MemoAdd2 extends Component {
             <div className="memo-title">
               MEMO
             </div>
-            <div className="memo-close" onClick={this.closePopover}>      
+            <div className="memo-close" onClick={this.closePopover}>
               <svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" viewBox="0 0 357 357">
                 <path d="M357 35.7L321.3 0 178.5 142.8 35.7 0 0 35.7l142.8 142.8L0 321.3 35.7 357l142.8-142.8L321.3 357l35.7-35.7-142.8-142.8z"/>
               </svg>

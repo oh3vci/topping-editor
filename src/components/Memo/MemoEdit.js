@@ -113,7 +113,7 @@ export default class MemoEdit extends React.Component {
             <div className="memo-icon">
             </div>
             <div className="memo-title">
-              memo
+              MEMO
             </div>
             <div className="memo-close" onClick={this.closeMemo}>
               <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="6px" height="6px" viewBox="0 0 357 357" enableBackground="new 0 0 357 357">

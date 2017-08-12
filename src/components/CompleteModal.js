@@ -1,5 +1,7 @@
 import React from 'react';
+import { convertToRaw } from 'draft-js';
 import axios from 'axios';
+
 
 export default class CompleteModal extends React.Component {
   constructor(props) {
@@ -9,13 +11,18 @@ export default class CompleteModal extends React.Component {
   }
 
   complete = () => {
+    const { editorState, title } = this.props;
+
+    const raw = JSON.stringify(convertToRaw(editorState.getCurrentContent()));
     const essayId = document.getElementById("essayId").innerHTML;
 
     axios({
       method: 'post',
       url: '/editor/complete',
       data: {
-        "essayId": essayId
+        "essayId": essayId,
+        "title": title,
+        raw
       },
       xsrfCookieName: 'csrftoken',
       xsrfHeaderName: 'X-CSRFToken',
@@ -25,10 +32,12 @@ export default class CompleteModal extends React.Component {
       }
     })
     .then((response) => {
-
+      alert("첨삭이 완료되었습니다!");
+      window.location.href = "/mypage2";
     })
     .catch((error) => {
-
+      this.props.closeModal();
+      alert("알 수 없는 오류가 발생했습니다!");
     });
   }
 

@@ -31,7 +31,7 @@ export default class SaveModal extends Component {
             <div className="save-inform-detail">
               저장된 글은 '마이페이지' > '내가 쓴 글'에서 확인 가능합니다</div>
             <div className="save-link">
-              <a href="https://www.topp-ing.com/mypage2">바로가기</a>
+              <a href="/mypage2">바로가기</a>
             </div>
             <div className="modal-close">
               <button onClick={closeModal}>
