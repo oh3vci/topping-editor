@@ -19,6 +19,8 @@
     "react-addons-create-fragment": "^15.5.4",
     "react-dom": "^15.4.2",
     "react-draggable": "^2.2.6",
+    "react-fontawesome": "^1.6.1",
+    "react-icons": "^2.2.5",
     "tlds": "^1.183.0"
   },
   "scripts": {
@@ -27,7 +29,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).",
+  "description": "Modern wysywig editor for topping",
   "main": "index.js",
   "author": "",
   "license": "ISC"
