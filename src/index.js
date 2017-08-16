@@ -12,6 +12,7 @@ import './styles/memoStyles.css';
 
 import './styles/style.css';
 import 'semantic-ui-css/semantic.min.css';
+import 'tether-shepherd/dist/css/shepherd-theme-arrows.css';
 
 render(
   <App />,

@@ -78,6 +78,7 @@ const decorator = new CompositeDecorator([
   }
 ]);
 
+
 class App extends Component {
 
   constructor(props) {
@@ -113,6 +114,7 @@ class App extends Component {
 
     this.focus = () => this.editor.focus();
     this.changeTitle = this.changeTitle.bind(this);
+
   }
 
 

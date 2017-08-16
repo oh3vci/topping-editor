@@ -223,7 +223,6 @@
   fill: #fff;
 }
 
-
 .memo-content {
   width: 180px;
   height: 170px;
@@ -285,4 +284,47 @@
 .memo-button button:hover {
   background-color: #17c6e2;
   font-weight: bold;
+}
+
+/*** morphing arrow ***/
+
+
+.close-arrow {
+  position: absolute;
+  top: 50%;
+  width: 0.8rem;
+  height: 0.8rem;
+  background: transparent;
+  border-top: .2rem solid #6d6e70;
+  border-right: .2rem solid #6d6e70;
+  box-shadow: 0 0 0 lightgray;
+  transition: all 200ms ease;
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+  margin-left: 0.4rem;
+  cursor: pointer;
+}
+.close-arrow.left {
+  cursor: pointer;
+  left: 0;
+  transform: translate3d(0, -50%, 0) rotate(-135deg);
+}
+.close-arrow.right {
+  cursor: pointer;
+  right: 0;
+  transform: translate3d(0, -50%, 0) rotate(45deg);
+}
+.close-arrow:hover {
+  cursor: pointer;
+  border-top: .2rem solid #17c6e2;
+  border-right: .2rem solid #17c6e2;
+  box-shadow: .1rem -.1rem 0 #6d6e70;
+}
+.close-arrow:hover.left {
+  cursor: pointer;
+  left: -.2rem;
+}
+.close-arrow:hover.right {
+  cursor: pointer;
+  right: -.2rem;
 }
