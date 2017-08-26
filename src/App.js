@@ -464,7 +464,7 @@ class App extends Component {
                 }}
                 editorState={editorState}
                 onChange={this.onChange}
-                placeholder="토핑 해주세요!"
+                placeholder="내용을 입력해주세요"
                 plugins={plugins}
                 ref={(element) => { this.editor = element; }}
               />

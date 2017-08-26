@@ -75,7 +75,7 @@ class EssayTitle extends React.Component {
               {
                 editorTitle === ''
                 ?
-                "제목을 입력하세요"
+                "토핑해주세요"
                 :
                 editorTitle
               }
