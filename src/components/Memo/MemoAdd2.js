@@ -146,7 +146,7 @@ export default class MemoAdd2 extends Component {
 
           <div className="memo-button">
             <div className="memo-button-wrapper">
-              <button className="memo-delete-button" onClick={this.closePopover}>확인</button>
+              <button className="memo-delete-button" onClick={this.addMemo}>확인</button>
             </div>
           </div>
         </div>
