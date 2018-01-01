@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "react-scripts": "0.9.3"
+    "react-scripts": "0.9.3",
+    "semantic-ui-css": "^2.2.12"
   },
   "dependencies": {
     "axios": "^0.16.1",
@@ -11,6 +12,7 @@
     "draft-convert": "^1.4.6",
     "draft-js": "^0.10.0",
     "draft-js-buttons": "^2.0.0-beta6",
+    "draft-js-counter-plugin": "^2.0.0-beta1",
     "draft-js-inline-toolbar-plugin": "^2.0.0-beta6",
     "draft-js-plugins-editor": "^2.0.0-beta9",
     "draft-js-side-toolbar-plugin": "^2.0.0-beta6",
