@@ -40,24 +40,14 @@ export default class BlockTypeSelect extends React.Component {
       >
         <div className="blockType">
           <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 0h24v24H0z" fill="none" />
-            <path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
+            <g fill-rule="evenodd">
+              <path d="M11 6h2v12h-2z" />
+              <path d="M18 11v2H6v-2z" />
+            </g>
           </svg>
         </div>
-        {/*
-          The spacer is needed so the popup doesn't go away when moving from the
-          blockType div to the popup.
-        */}
+
         <div className="spacer" />
-        <div className="popup" style={this.state.style}>
-          {this.props.structure.map((Component, index) => (
-            <Component
-              key={index}
-              getEditorState={getEditorState}
-              setEditorState={setEditorState}
-            />
-          ))}
-        </div>
       </div>
     );
   }

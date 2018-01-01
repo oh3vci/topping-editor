@@ -10,7 +10,8 @@ import {
 import Editor from 'draft-js-plugins-editor';
 import axios from 'axios';
 
-//import createSideToolbarPlugin from './components/SideToolbar';
+import createCounterPlugin from 'draft-js-counter-plugin';
+import createSideToolbarPlugin from './components/SideToolbar';
 import createInlineToolbarPlugin, { Separator } from './components/InlineToolbar';
 import createMemoPlugin from './components/Memo';
 import Memo from './components/Memo/Memo';
@@ -43,7 +44,8 @@ const handleMemo = (memoContent) => {
   memoAddElement.openPopover(memoContent);
 };
 
-//const sideToolbarPlugin = createSideToolbarPlugin();
+const counterPlugin = createCounterPlugin();
+const sideToolbarPlugin = createSideToolbarPlugin();
 const inlineToolbarPlugin = createInlineToolbarPlugin({
   structure: [
     FontSizeDownButton,
@@ -60,11 +62,13 @@ const inlineToolbarPlugin = createInlineToolbarPlugin({
 });
 const memoPlugin = createMemoPlugin();
 
-//const { SideToolbar } = sideToolbarPlugin;
+const { CharCounter } = counterPlugin;
+const { SideToolbar } = sideToolbarPlugin;
 const { InlineToolbar } = inlineToolbarPlugin;
 const { MemoAdd2, MemoSideBar } = memoPlugin;
 const plugins = [
-  //sideToolbarPlugin,
+  counterPlugin,
+  sideToolbarPlugin,
   inlineToolbarPlugin,
   memoPlugin
 ];
@@ -114,9 +118,7 @@ class App extends Component {
 
     this.focus = () => this.editor.focus();
     this.changeTitle = this.changeTitle.bind(this);
-
   }
-
 
   componentWillMount() {
     return axios({
@@ -424,6 +426,13 @@ class App extends Component {
         <div className="header">
           <div className="blank-side" />
           <div className="center">
+            <div className="editor_title">
+              <EssayTitle
+                editorTitle={title}
+                editorState={editorState}
+                changeTitle={this.changeTitle}
+              />
+            </div>
             <Navbar
               originEssayId={originEssayId}
               title={title}
@@ -441,14 +450,7 @@ class App extends Component {
           <div className="blank-side">
           </div>
           <div className="editor">
-            <div className="editor_title">
-              <EssayTitle
-                editorTitle={title}
-                editorState={editorState}
-                changeTitle={this.changeTitle}
-              />
-            </div>
-            <div className="editor_content">
+            <div className="editor-content">
               <Editor
                 customStyleMap={{
                   'COLOR': {
@@ -468,7 +470,14 @@ class App extends Component {
                 plugins={plugins}
                 ref={(element) => { this.editor = element; }}
               />
-              {/*<SideToolbar />*/}
+              <div className="counter-wrapper">
+                <div className="char-counter">
+                  <CharCounter />자 (공백 포함)
+                </div>
+              </div>
+              <SideToolbar
+                
+              />
               <InlineToolbar
                 ref={(element) => { inlineToolbarElement = element; }}
               />
