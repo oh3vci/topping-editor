@@ -36,11 +36,12 @@ body {
 .center, .editor {
   float: left;
   width: 100%;
+  padding-bottom: 2%;
 }
 
 .center {
-  text-align: center;
-  background-color: none;
+  background: #fff;
+  border: 1px solid #A6A8AB;
 }
 
 .editor {
@@ -48,12 +49,14 @@ body {
   cursor: text;
   border: 0.5px solid #A6A8AB;
   background-color: #fff;
-  /*box-shadow: 0px 0px 5px 1px rgba(110,110,110,0.3);*/
+  box-shadow: 4px 5px 5px 1px rgba(110,110,110,0.3);
 }
 
-.editor_content {
+/*
+.editor-content {
   padding-top: 80px;
 }
+*/
 
 /* 에디터 글자 크기 및 줄 간격 */
 .editor :global(.public-DraftEditor-content) {
@@ -101,6 +104,7 @@ body {
   position: relative;
   float: left;
   width: 100%;
+  padding: 2% 10%;
 }
 
 .wrapper-essay-title svg {
@@ -183,7 +187,6 @@ body {
   font-size: 14px;
   min-width: 90px;
 }
-
 
 
 
@@ -329,7 +332,6 @@ memo {
 
 /*** navtoolbar ***/
 .navtoolbar {
-  background: #17c6e2;
   margin-bottom: -4px;
   padding-left: 10px;
   padding-right: 10px;
@@ -349,68 +351,11 @@ memo {
   z-index: 9999;
 }
 
-[data-button-tooltip] {
-  position: relative;
-  overflow: visible;
-}
-
-[data-button-tooltip]:before {
-  display: none;
-  position: absolute;
-  width: 0;
-  top: 95%;
-  left: 50%;
-  margin-left: -.4375em;
-  border: solid transparent;
-  border-width: 0 .4375em .425em;
-  border-bottom-color: rgba(10,10,10,0.8);
-  content: "";
-  z-index: 99;
-}
-
-[data-button-tooltip]:after {
-	display: none;
-
-	/* type & style */
-	font: normal 1em/1 sans-serif;
-	white-space: nowrap;
-	text-shadow: none;
-	color: #fff;
-  background: rgba(10,10,10,0.8);
-	border-radius: .25em;
-
-	/* position & size */
-	position: absolute;
-	z-index: 99;
-	padding: .375em .5em;
-  top: 90%;
-  left: 50%;
-  margin-top: .6em;
-  -webkit-transform: translateX(-50%);
-  -moz-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  -o-transform: translateX(-50%);
-  transform: translateX(-50%);
-  content: attr(data-button-tooltip);
-
-}
-
-
-[data-button-tooltip]:hover:before,
-[data-button-tooltip]:hover:after {
-	display: inline-block;
-}
 
 /***** exit-button *****/
 
-.exit-button {
-  display: block;
-  position: relative;
-  float: left;
-  height: 100%;
-}
 
-.auto-save-time, .save-button, .origin-button, .complete-button {
+.auto-save-time, .exit-button, .save-button, .origin-button, .complete-button {
   display: block;
   position: relative;
   float: right;
@@ -428,4 +373,31 @@ memo {
   font-weight: bold;
   font-size: 14px;
   min-width: 90px;
+}
+
+.exit-button p, .save-button p, .origin-button p, .complete-button p {
+  margin-top: -10px;
+  text-align: center;
+  font-weight: 700;
+  color: #888;
+}
+
+.exit-button:hover svg g, .save-button:hover svg g, .origin-button:hover svg g, .complete-button:hover svg g {
+  stroke: #000;
+}
+
+.exit-button:hover p, .save-button:hover p, .origin-button:hover p, .complete-button:hover p {
+  color: #000;
+}
+
+/***** character counter *****/
+
+.counter-wrapper {
+  position: relative;
+}
+
+.char-counter {
+  position: absolute;
+  top: 20px;
+  right: 10px;
 }
